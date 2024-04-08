@@ -3,26 +3,46 @@
 * [Proyecto de Angular](#proyecto-de-angular)
 * [Combados básicos](#combados-básicos)
 * [Estructura de un proyecto de Angular](#estructura-de-un-proyecto-de-angular)
-* [Ciclo de vida](#ciclo-de-vida)
-  * [ngOnChanges](#ngonchanges)
-  * [ngOnInit](#ngoninit)
-  * [ngDoCheck](#ngdocheck)
-  * [ngAfterContentInit](#ngaftercontentinit)
-  * [ngAfterContentChecked](#ngaftercontentchecked)
-  * [ngAfterViewInit](#ngafterviewinit)
-  * [ngAfterViewChecked](#ngafterviewchecked)
-  * [ngOnDestroy](#ngondestroy)
 * [Componentes](#componentes)
+    * [Ciclo de vida](#ciclo-de-vida)
+      * [ngOnChanges](#ngonchanges)
+      * [ngOnInit](#ngoninit)
+      * [ngDoCheck](#ngdocheck)
+      * [ngAfterContentInit](#ngaftercontentinit)
+      * [ngAfterContentChecked](#ngaftercontentchecked)
+      * [ngAfterViewInit](#ngafterviewinit)
+      * [ngAfterViewChecked](#ngafterviewchecked)
+      * [ngOnDestroy](#ngondestroy)
 * [Servicios](#servicios)
+    * [Peticiones HTTP](#peticiones-http)
+      * [Get](#Get)
+      * [Post](#Post)
+      * [Put](#Put)
+      * [Delete](#Delete)
 * [Directivas](#directivas)
-* [Rutas](#rutas)
-* [Módulo](#módulo)
-* [CommonModule](#commonmodule)
   * [ngIf](#ngif)
+  * [ngIfElse](#ngifelse)
   * [ngFor](#ngfor)
   * [ngStyle](#ngstyle)
   * [ngClass](#ngclass)
-  * [ngSwitch](#ngSwitch)
+  * [ngSwitch](#ngswitch)
+  * [ng-container](#ng-container)
+  * [ng-template](#ng-template)
+  * [Directivas personalizadas](#directivas-personalizadas)
+* [Pipes](#pipes)
+  * [Uppercase](#uppercase)
+  * [Lowercase](#lowercase)
+  * [Slice](#slice)
+  * [Decimal](#decimal)
+  * [Percent](#percent)
+  * [Currency](#currency)
+  * [Json](#json)
+  * [Async](#async)
+  * [Date](#date)
+  * [Pipes personalizados](#pipes-personalizados) 
+* [Guard](#guard)
+* [Módulo](#módulo)
+* [Rutas](#rutas)
 * [Navegación en Angular](#navegación-en-angular)
   * [Routes File](#routes-file)
   * [RouterModule.forRoot vs RouterModule.forChild](#routermoduleforroot-vs-routermoduleforchild)
@@ -34,24 +54,6 @@
 * [Decoradores](#decoradores)
   * [@Input](#input)
   * [@Output](#output)
-* [Guard](#guard)
-* [Pipes](#pipes)
-  * [Uppercase](#uppercase)
-  * [Lowercase](#lowercase)
-  * [Slice](#slice)
-  * [Decimal](#decimal)
-  * [Percent](#percent)
-  * [Currency](#currency)
-  * [Json](#json)
-  * [Async](#async)
-  * [Date](#date)  
-  * [Personalizado](#personalizado)  
-  * [DomSeguro](#domseguro)  
-* [Peticiones HTTP](#peticiones-http)
-  * [Get](#Get)
-  * [Post](#Post)
-  * [Put](#Put)
-  * [Delete](#Delete)
 * [RxJS](#rxjs)
   * [Partes del RxJS](#partes-del-rxjs)
   * [Patrón Iterador](#patrón-iterador)
@@ -160,7 +162,55 @@ Angular es un lenguaje basado en `componentes`, por lo general una app de angula
 └── README.md              //Información general del proyecto
 ```
 
-## Ciclo de vida
+
+## Componentes
+Los `componentes` son clases con bloques de código re-utilizable que poseen un decorador específico y ejecután una acción en particular, consta básicamente de:
+* **`Component.css`**: Archivo de estilos del componente app.
+* **`Component.html`**: Archivo html del componente app.
+* **`Component.spec.ts`**: Archivo de pruebas automáticas del componente app
+* **`Component.ts`**: Archivo de typescript del componente app, incluirá:
+  *   **`@Component`:** Decorador base de Angular que proporcionará datos de configuración a fin de indicar como procesar, instanciar y usar el componente en tiempo de ejecución.
+  *   **`selector`:** Le indicará a Angular que cuando sea escogido deberá renderizar el `templateUrl`
+  *   **`templateUrl`:** Ruta donde se encontrará la plantilla a renderizar
+  *   **`template`:** Propiedad para crear un template inline `<hi>Hola  Mundo</hi>`
+  *   **`styleUrls`:** Ruta del archivo estilo a aplicar (CSS, SASS, etc), unicamente al componente creado 
+
+  ```ts
+  import { Component } from '@angular/core';
+
+  @Component({
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css']
+  })
+  export class HeaderComponent {
+  }
+  ```
+
+Para indicarle a angular que el componente creado es uno el cual puede utilizar basta con dirigirse al `app.module.ts`, importar la ruta del nuevo componente creado y declararlo en la sección `declarations`
+
+```ts
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+import { HeaderComponent } from './components/header/header.component'
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HeaderComponent
+  ],
+  imports: [
+    BrowserModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+### Ciclo de vida
 El ciclo de vida de un componente o `lifecycle hook` esta compuesto por 8 etapas denominadas `lifecycle hook event` o `evento de enlace de ciclo de vida`
 
 <img src="img/ciclo_vida.png" width="auto;"/>
@@ -334,52 +384,6 @@ ngOnDestroy(){
 }
 ```
 
-## Componentes
-Los `componentes` son clases con bloques de código re-utilizable que poseen un decorador específico y ejecután una acción en particular, consta básicamente de:
-* **`Component.css`**: Archivo de estilos del componente app.
-* **`Component.html`**: Archivo html del componente app.
-* **`Component.spec.ts`**: Archivo de pruebas automáticas del componente app
-* **`Component.ts`**: Archivo de typescript del componente app, incluirá:
-  *   **`@Component`:** Decorador base de Angular que proporcionará datos de configuración a fin de indicar como procesar, instanciar y usar el componente en tiempo de ejecución.
-  *   **`selector`:** Le indicará a Angular que cuando sea escogido deberá renderizar el `templateUrl`
-  *   **`templateUrl`:** Ruta donde se encontrará la plantilla a renderizar
-  *   **`template`:** Propiedad para crear un template inline `<hi>Hola  Mundo</hi>`
-  *   **`styleUrls`:** Ruta del archivo estilo a aplicar (CSS, SASS, etc), unicamente al componente creado 
-
-  ```ts
-  import { Component } from '@angular/core';
-
-  @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.css']
-  })
-  export class HeaderComponent {
-  }
-  ```
-
-Para indicarle a angular que el componente creado es uno el cual puede utilizar basta con dirigirse al `app.module.ts`, importar la ruta del nuevo componente creado y declararlo en la sección `declarations`
-
-```ts
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/header/header.component'
-
-@NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent
-  ],
-  imports: [
-    BrowserModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
-```
 
 ## Servicios
 Los servicios  son clases que se encargan de acceder a los datos para entregarlos a los componentes, lo bueno de esto es que se puede reaprovechar servicios para distintos componentes. Para la creación de servicios podemos usar el angular CLI o hacerlo manualmente creando una carpeta `service` dentro de app y creando nuestro archivo bajo la nomenclatura `name.service.ts`
@@ -442,147 +446,87 @@ export class HeroesComponent implements OnInit {
 ```
 > Los servicios tendran variables de tipo privadas y el tipo será del mismo que la clase importada
 
-## Directivas
-Las directivas son instrucciones para crear, formatear e interaccionar con el DOM. De hecho, los componentes son un tipo de directiva, ya que cuando usamos el selector de un componente, le estamos pidiendo a Angular que muestre dicho componente (y su lógica de programación) en algún lugar determinado del DOM. 
 
-Al igual que existen directivas que son más habituales de usar creadas por el mismo angular como sería [ngIf](#ngif), [ngFor](#ngfor), [ngStyle](#ngstyle), [ngClass](#ngclass), etc... Existe la posibilidad de crear nuestras propias directivas con el comando `ng generate directive ruta`
-
+### Peticiones HTTP
+La mayoría de las aplicaciones front-end necesitan comunicarse con un servidor a través del protocolo HTTP para descargar o cargar datos y acceder a otros servicios back-end. Para usar el cliente HTTP de angular para hacer peticiones y consumir API REST usando los distintos métodos (GET, POST, PUT, DELETE, etc), es necesario importar el módulo propio de angular `HttpClientModule` en el `app.module.ts`
 ```ts
-import { Directive } from '@angular/core';
-
-@Directive({
-  selector: '[appResaltado]'
-})
-export class ResaltadoDirective {
-
-  constructor() { console.log('Directiva personalizada') }
-}
-```
-
-Podemos hacer uso de dicha directiva desde nuestro html llamándola en la etiqueta de nuestra preferencia
-```html
-<p appResaltado> Hola mundo</p>
-```
-
-Nuestra directiva podremos configurarla desde el archivo TS según la necesidad que tengamos importando las clases que requiramos a fin de modificar nuestro DOM.
-```ts
-import { Directive, ElementRef, HostListener } from '@angular/core';
-
-@Directive({
-  selector: '[appResaltado]'
-})
-export class ResaltadoDirective {
-
-  // Evento que escucha cuando el mouse pasa por la etiqueta
-  @HostListener('mouseenter') mouseEntro(){
-    this.elementRef.nativeElement.style.backgroundColor = 'yellow';
-  }
-
-  // Evento que escucha cuando el mouse sale de la etiqueta
-  @HostListener('mouseleave') mouseSalio(){
-    this.elementRef.nativeElement.style.backgroundColor = null;
-  }
-
-  constructor(private elementRef:ElementRef) {}
-}
-```
-De igual manera podremos mandar parámetros a nuestra directiva personalizada desde nuestro HTML, para ello basta con poner entre llaves nuestra directiva e igualarla con el parámetro a mandar, en nuestro archivo TS de nuestra directiva debemos usar el decorador [@Input](#input) a fin de recibir el parámetro a usar
-```html
-<p [appResaltado] = "'orange'">Hola mundo</p>
-```
-```ts
-import { Directive, ElementRef, HostListener, Input,  } from '@angular/core';
-
-@Directive({
-  selector: '[appResaltado]'
-})
-export class ResaltadoDirective {
-
-  @Input("appResaltado") nuevoColor:string
-
-  @HostListener('mouseenter') mouseEntro(){
-    this.resaltar(this.nuevoColor || 'yellow');
-  }
-
-  @HostListener('mouseleave') mouseSalio(){
-    this.resaltar(null);
-  }
-
-  constructor(private elementRef:ElementRef) {}
-
-  private resaltar (color:string){
-    this.elementRef.nativeElement.style.backgroundColor = color;
-  }
-}
-```
-
-
-## Rutas
-Los `Rutas` son  
-```ts
-
-```
-
-
-## Módulo
-Los `módulos` son un mecanismos de agrupación lógica de símbolos (componentes, directivas, pipes y servicios) que permite a angular saber las importaciones / exportaciones necesarias para que cierto componente funcione. 
-```ts
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
-  declarations: [],
-  imports: [CommonModule]
-})
-export class ComponentsModule { }
-```
-Los módulos por defecto incluiran el decorador `@NgModule` e importarán el módulo opcional `CommonModule`.
-> El `CommonModule` es un módulo básico de angular que incluira las directivas `NgIf, NgForOf, DecimalPipe, etc`
-
-
-
-Un módulo Angular normalmente está formado por una carpeta completa de componentes, servicios, etc, al igual que también tienen la particularidad de definir las dependencias con otros módulos, esto ultimo es especialmente util ya que cuando queremos deshacernos de una funcionalidad de nuestra aplicación podríamos simplemente eliminar el Módulo Angular correspondiente, con un impacto mínimo en el resto de áreas de la aplicación.
-
-```ts
-@NgModule({
-imports: [ BrowserModule, HttpModule, FormsModule ],
-declarations: [ PersonComponent, ContactComponent, ContactListComponent ],
-providers: [ PersonService, ContactService ],
-exports: [ ContactListComponent, ContactComponent ]
-})
-export class ContactModule {}
-```
-Para poder usar los componentes/servicios/pipes, etc, en otros módulos debemos exportarlos dentro de nuestro decorador `@NgModule` e importar el módulo en el lugar correspondiente
-
-```ts
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ContactModule } from '../contact.module';
-
-@NgModule({
-  declarations: [],
+  declarations: [AppComponent],
   imports: [
-    CommonModule,
-    ContactModule
-    ]
-})
-export class ComponentsModule { }
-```
-
-## CommonModule
-Módulo base de Angular proveniente del package `@angular/common` que exporta todas las directivas y Pipes de angular básicos, tales como `NgIf, NgForOf, DecimalPipe, etc`. Este módulo es reexportado por `BrowserModule`, que se incluye automáticamente en la raíz `AppModule` cuando se crea una nueva aplicación con el comando `new` en el CLI.
-```ts
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-@NgModule({
-  declarations: [],
-  imports: [BrowserModule],
+    BrowserModule,
+    HttpClientModule,
+    RouterModule.forRoot(ROUTES, {useHash:true})
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
 ```
+Seguido de esto importamos la clase `HttpClient` de `@angular/common/http` en el componente/servicio donde lo vallamos a utilizar y lo inyectamos a su constructor 
+```ts
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable()
+export class ConfigService {
+  constructor(private http: HttpClient) { }
+}
+```
+La clase `HttpCliente` nos traerá los distintos métodos (GET, POST, PUT, DELETE) los cuales usaremos para relizar las peticiones
+```ts
+url = 'https://restcountries.eu/rest/v2/lang/es'
+params = {name:'Fernando'}
+// Get
+this.http.get(url)
+// Post
+this.http.post(url, params)
+//Put
+this.http.put(url, params)
+// Delete
+this.http.post(url+'?id')
+```
+Estas peticiones devolveran un Observable con el tipo de dato que se le indiquen, por lo que es recomendable indicarlo en la función que llamará la petición
+```ts
+getProductos(): Observable<any>{
+    return this.http.get(this.url+'productos');
+}
+```
+
+#### GET
+El método `GET` solicita una representación de un recurso específico. Las peticiones que usan el método GET sólo deben recuperar datos.
+
+#### POST
+El método `POST` se utiliza para enviar una entidad a un recurso en específico, causando a menudo un cambio en el estado o efectos secundarios en el servidor.
+En angular un petición de tipo `POST` se compone de:
+*   **`url`:** Sera de tipo `string` y representará endpoint a usar.
+*   **`body`:** Puede ser de tipo `any` o de algún tipo que se le especifique en concreto (Por lo general suele ser un objeto) donde se almacenará la data. 
+*   **`options`:** Es un objeto (*opcional*) en donde podremos pasarle campos extras como el headers de la petición en caso de ser requerido
+
+```ts
+// Una petición post estandar solo lleva la url y el body
+crearHeroe(heroe: HeoreModel): Observable<any> {
+  return this.http.post(url, heroe)
+}
+
+// en caso de desear agregar un campo opcional quedaría
+crearHeroe(heroe: HeoreModel): Observable<any> {
+  let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
+  return this.http.post(url, heroe, {headers: headers})
+}
+```
+
+#### PUT
+El modo `PUT` reemplaza todas las representaciones actuales del recurso de destino con la carga útil de la petición.
+
+#### DELETE
+El método `DELETE` borra un recurso en específico.
+
+
+
+## Directivas
+Las directivas son instrucciones para crear, formatear e interaccionar con el DOM. De hecho, los componentes son un tipo de directiva, ya que cuando usamos el selector de un componente, le estamos pidiendo a Angular que muestre dicho componente (y su lógica de programación) en algún lugar determinado del DOM. 
 
 #### ngIf
 Condicional del package `@angular/common` que permitira a través de su valor booleano ejecutar una sección del código HTML.
@@ -622,6 +566,20 @@ public frase : any = {
   }
 }
 ```
+
+#### ngIfElse
+Condicional en caso de requerir un If-Else
+
+```html
+<ng-container *ngIf="expression; else elseTemplate">
+  Condición cuando IF es true
+</ng-container>
+<ng-template #elseTemplate>
+  Condición cuando IF es false
+</ng-template>
+```
+
+
 
 #### ngFor
 Condicional del package `@angular/common` que permitirá recorrer un arreglo. Se coloca en la etiqueta a repetir con la caracteristicas `*ngFor="let nombrePersonajes of personajes"` donde inicializamos una variable de nombre `nombrePersonajes` la cual tomará los elementos propios del arreglo `personajes`
@@ -732,6 +690,467 @@ export class NgSwitchComponent {
     <div *ngSwitchDefault>danger</div>
 </div>
 ```
+
+#### ng-container
+La directiva `ng-container` es una directiva estructural en Angular que nos crea un elemento HTML en la página, pero permite agrupar elementos HTML relacionados y aplicarles directivas y/o condiciones.
+La directiva `ng-container` se utiliza a menudo en situaciones donde necesitamos utilizar una directiva estructural (por ejemplo, `*ngIf, *ngFor,`etc.) en un grupo de elementos HTML sin agregar un elemento adicional a la página.
+
+```html
+<ng-container *ngIf="mostrarElementos">
+  <p>Elemento 1</p>
+  <p>Elemento 2</p>
+  <p>Elemento 3</p>
+</ng-container>
+```
+> **Nota**: `ng-container` se utiliza para agrupar elementos sin introducir un nuevo elemento en el DOM.
+
+
+#### ng-template
+La directiva `ng-template` es una directiva estructural en Angular que se utiliza para definir plantillas de renderizado que no se muestran directamente en la página, pero que se pueden utilizar para renderizar contenido dinámicamente.
+
+```html
+<ul>
+  <ng-template ngFor let-item [ngForOf]="items">
+    <li>{{ item }}</li>
+  </ng-template>
+</ul>
+```
+También podemos asignar un nombre a la plantilla utilizando la directiva ng-template y luego hacer referencia a ella en otro lugar de la página utilizando la directiva `ngTemplateOutlet`.
+
+```html
+<ng-template #miPlantilla>
+  <p>Contenido de la plantilla</p>
+</ng-template>
+
+<div>
+  <h2>Título</h2>
+  <ng-container *ngTemplateOutlet="miPlantilla"></ng-container>
+</div>
+```
+
+> **Nota**: `ng-template` se utiliza para definir plantillas que no se representan directamente en el DOM, sino que se utilizan para renderizar contenido dinámicamente.
+
+
+#### Directivas personalizadas
+Al igual que existen directivas que son más habituales de usar creadas por el mismo angular como sería [ngIf](#ngif), [ngFor](#ngfor), [ngStyle](#ngstyle), [ngClass](#ngclass), etc... Existe la posibilidad de crear nuestras propias directivas con el comando `ng generate directive ruta`
+
+```ts
+import { Directive } from '@angular/core';
+
+@Directive({
+  selector: '[appResaltado]'
+})
+export class ResaltadoDirective {
+
+  constructor() { console.log('Directiva personalizada') }
+}
+```
+
+Podemos hacer uso de dicha directiva desde nuestro html llamándola en la etiqueta de nuestra preferencia
+```html
+<p appResaltado> Hola mundo</p>
+```
+
+Nuestra directiva podremos configurarla desde el archivo TS según la necesidad que tengamos importando las clases que requiramos a fin de modificar nuestro DOM.
+```ts
+import { Directive, ElementRef, HostListener } from '@angular/core';
+
+@Directive({
+  selector: '[appResaltado]'
+})
+export class ResaltadoDirective {
+
+  // Evento que escucha cuando el mouse pasa por la etiqueta
+  @HostListener('mouseenter') mouseEntro(){
+    this.elementRef.nativeElement.style.backgroundColor = 'yellow';
+  }
+
+  // Evento que escucha cuando el mouse sale de la etiqueta
+  @HostListener('mouseleave') mouseSalio(){
+    this.elementRef.nativeElement.style.backgroundColor = null;
+  }
+
+  constructor(private elementRef:ElementRef) {}
+}
+```
+De igual manera podremos mandar parámetros a nuestra directiva personalizada desde nuestro HTML, para ello basta con poner entre llaves nuestra directiva e igualarla con el parámetro a mandar, en nuestro archivo TS de nuestra directiva debemos usar el decorador [@Input](#input) a fin de recibir el parámetro a usar
+```html
+<p [appResaltado] = "'orange'">Hola mundo</p>
+```
+```ts
+import { Directive, ElementRef, HostListener, Input,  } from '@angular/core';
+
+@Directive({
+  selector: '[appResaltado]'
+})
+export class ResaltadoDirective {
+
+  @Input("appResaltado") nuevoColor:string
+
+  @HostListener('mouseenter') mouseEntro(){
+    this.resaltar(this.nuevoColor || 'yellow');
+  }
+
+  @HostListener('mouseleave') mouseSalio(){
+    this.resaltar(null);
+  }
+
+  constructor(private elementRef:ElementRef) {}
+
+  private resaltar (color:string){
+    this.elementRef.nativeElement.style.backgroundColor = color;
+  }
+}
+```
+
+
+
+## Pipes
+Los pipes son herramientas de Angular que nos permitirán transformar visualmente la información (no cambián el valor de la misma), entre los pipes tenemos:
+
+#### Uppercase
+Transforma todo el texto a mostrar a mayúscula
+```ts
+value_expression = "Hola Mundo";
+{{ value_expression | uppercase }}
+resultado = HOLA MUNDO ;
+```
+
+#### Lowercase
+Transforma todo el texto a mostrar a minúscula
+```ts
+value_expression = "Hola Mundo";
+{{ value_expression | lowercase }}
+resultado = hola mundo ;
+```
+
+#### Slice
+Permite cortar un texto/arreglo creando así un nuevo valor desde el punto cortado.
+```ts
+value_expression = "Hola Mundo";
+{{ value_expression | slice:3 }}
+resultado = a mundo ;
+```
+También podemos pasar los puntos de inicio y fin del parámetro que que deseamos cortar.
+```ts
+value_expression = "Hola Mundo";
+{{ value_expression | slice:0:3 }}
+resultado = hol ;
+```
+En los arreglos ocurriría igual, podemos pasar la posición de incio y final que deseamos traer.
+```ts
+value_expression = [1,2,3,4,5,6,7,8,9];;
+{{ value_expression | slice:1:5 }}
+resultado = 2,3,4,5 ;
+```
+
+#### Decimal
+Permite formatear un valor tipo number con las reglas que se le estipulen. Siguen los siguientes parametros `{{ value_expression | number [ : digitsInfo [ : locale ] ] }}`
+Donde los parámetros de `digitsInfo` vendrá escrito bajo el siguiente formato:
+`{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}`
+* **minIntegerDigits:** Es el número mínimo de dígitos enteros antes del punto decimal. El valor predeterminado es 1.
+* **minFractionDigits:** El número mínimo de dígitos después del punto decimal. El valor predeterminado es 0.
+* **maxFractionDigits:** El número máximo de dígitos después del punto decimal. El valor predeterminado es 3.
+
+```ts
+value_expression = Math.PI;
+{{ value_expression | number:'1.0-3' }}
+resultado = 3.142;
+
+value_expression = Math.PI;
+{{ value_expression | number:'3.0-3' }}
+resultado = 003.142;
+
+value_expression = Math.PI;
+{{ value_expression | number:'.0-2' }}
+resultado = 3.14;
+```
+> Si no colocamos un `minIntegerDigits` angular traerá todos los números enteros que halle.
+
+#### Percent
+Permite formatear un valor a una cadena de porcentaje, según las reglas estipuladas. Siguen los siguientes parametros `{{ value_expression | percent [ : digitsInfo [ : locale ] ] }}`
+
+```ts
+value_expression = 0.234;
+{{ value_expression | percent }}
+resultado = 23%;
+
+value_expression = 0.234;
+{{ value_expression | percent:'2.2-2' }}
+resultado = 23.40%;
+```
+Las reglas estipuladas siguen las mismas normas que las estipuladas en el pipe `Decimal`
+
+#### Currency
+Permite formatear un valor a una cadena de moneda, según las reglas estipuladas. Siguen los siguientes parametros `{{ value_expression | currency [ : currencyCode [ : display [ : digitsInfo [ : locale ] ] ] ] }}`
+
+```ts
+value_expression = 1234.5;
+{{ value_expression | currency }}
+resultado = $1234.5;
+
+value_expression = 1234.5;
+{{ value_expression | currency:'EUR' }}
+resultado = €1234.5;
+
+value_expression = 1234.5;
+{{ value_expression | currency:'CAD$ ':'symbol':'.0-0' }}
+resultado = CAD$ 1234.5;
+
+value_expression = 1234.5;
+{{ value_expression | currency:'LTM ':'symbol':'.0-0' }}
+resultado = LTM 1234.5;
+```
+Las reglas estipuladas permiten personalizar la moneda a mostrar en caso de ser necesario como ocurre con la moneda inventada `LTM`
+
+
+#### Json
+Permite convertir un objeto en su representación tipo JSON para mostrar
+
+```ts
+value_expression = {nombre:'Logan', clave:'Wolverine', edad:500,
+  direccion:{calle:'Primera',casa:20}};
+{{ value_expression }}
+resultado = [object Object];
+
+value_expression = {nombre:'Logan', clave:'Wolverine', edad:500,
+  direccion:{calle:'Primera',casa:20}};
+{{ value_expression | json }}
+resultado = { "nombre": "Logan", "clave": "Wolverine", "edad": 500, "direccion": { "calle": "Primera", "casa": 20 } };
+```
+Si deseamos que el resultado se mire más ordenado podemos usar la etiqueta HTML `<pre></pre>`.
+```html
+<pre>
+  {{ heroe | json }}
+</pre>    
+```
+El cual nos mostrará como resultado, es decir una información más ordenada y facil de leer.
+```json
+          {
+  "nombre": "Logan",
+  "clave": "Wolverine",
+  "edad": 500,
+  "direccion": {
+    "calle": "Primera",
+    "casa": 20
+  }
+} 
+```
+
+#### Async
+
+Permite resolver situaciones de programación asíncrona desde el HTML
+
+```ts
+value_expression = new Promise<string>((resolve) => {
+                          resolve('llego la data');
+                      });
+{{ value_expression }}
+resultado = [object Promise];
+
+value_expression = new Promise<string>((resolve) => {
+                          resolve('llego la data'); 
+                      });
+{{ value_expression | async }}
+resultado = 'llego la data';
+```
+En caso de existir un error o entrar en el `reject` la data no se mostrará salvo que se haya trabajado previamente el `catch`
+
+#### Date
+
+Permite formatear un valor de fecha con las reglas configuradas
+`{{ value_expression | date [ : format [ : timezone [ : locale ] ] ] }}`
+
+```ts
+value_expression = new Date();
+{{ value_expression }}
+resultado = Thu Apr 29 2021 20:07:39 GMT-0400 (hora de Venezuela);
+
+value_expression = new Date();
+{{ value_expression | date }}
+resultado = Apr 29, 2021;
+
+value_expression = new Date();
+{{ value_expression | date:'medium' }}
+resultado = Apr 29, 2021, 8:10:04 PM;
+
+value_expression = new Date();
+{{ value_expression | date:'short' }}
+resultado =  4/29/21, 8:10 PM;
+```
+Angular trae por default varias opciones predefinidas para el formateo de fecha como sería en el caso de `medium`, `short`, etc. Si deseamos colocar un formato personalizado debemos colocarlo entre comillas simples después del `date` siguiendo las configuraciones encontradas en la documentación de angular
+
+```ts
+value_expression = new Date();
+{{ value_expression | date:'MMMM - dd' }}
+resultado = April - 29;
+```
+Por defecto el idioma en el cual se mostrarán las fechas sera el ingles, si deseamos cambiar o agregar otros idiomas debemos de agregar librerías de dichos idiomas ejecutando `ng add @angular/localize` e importando en el `app.module.ts`
+```ts
+import { LOCALE_ID } from '@angular/core';
+// la terminación es según el idioma en este caso es=español
+import '@angular/common/locales/global/es';
+
+providers: [
+    { provide: LOCALE_ID, useValue: 'es' }    //linea agregada
+  ],
+```
+Después de agregar dichas dependencias la app tomará como lenguaje principal el asignado en el `providers`, de forma adicional podemos importar más idiomas y usarlos en la opción local de nuestro pipe, por ejemplo si importamos el frances `import '@angular/common/locales/global/fr'` y agregamos como opción de date `fr` nos quedaría
+```ts
+value_expression = new Date();
+{{ value_expression | date:'MMMM - dd':'':'fr }}
+resultado = avril - 30;
+```
+
+#### Pipes personalizados
+Los pipes personalizados pueden ser creado mediante Angular CLI con el comando `ng g p ruta` los cuales por buenas practicas se suelen crear en una carpeta de nombre **pipes**, si usamos el comando `ng g p pipes/capitalizado` nos creará en la ruta `src/app/pipes`
+* **capitalizado.pipe.spec.ts**: archivo de pruebas del pipe
+* **capitalizado.pipe.ts**: archivo de configuración del pipe
+
+De manera adicional nos actualizará las declaraciones con el nuevo elemento agregado en el `app.module.ts`, el pipe creado nos generará un archivo TS del tipo
+```ts
+import { Pipe, PipeTransform } from '@angular/core';
+@Pipe({
+  name: 'capitalizado'
+})
+export class CapitalizadoPipe implements PipeTransform {
+
+  transform(value: unknown, ...args: unknown[]):unknown {  
+    return null;
+  }
+}
+```
+Donde `value` representará el valor enviado desde el pipe en el html, mientras que `...args` recibirá la cantidad de argumentos que se deseen enviar
+```ts
+value_expression = 'fErNaNdO';
+{{ value_expression | capitalizado:1:true:'Hola'}}
+value = 'fErNaNdO'
+...args= [1,true,'Hola'];
+```
+De igual forma podemos atrapar los argumentos desde el pipe, por ejemplo si enviamos los mismos argumentos anteriores podemos indicarle lo que recibirá y el tipo
+```ts
+transform(
+  value: unknown, 
+  edad: number, 
+  activo:boolean, 
+  mensaje: string):unknown {  
+  return null;
+}
+```
+
+El decorador `@Pipe` recibe multiples propiedades entre ellas tenemos
+```ts
+@Pipe({
+  name: 'capitalizado',
+  pure: false
+})
+```
+>**name:** Nombre del pipe
+>**pure:** Por default no se coloca y viene seteada en `true`, pero al cambiarla a `false` detectará los cambios impuros dentro de un objeto compuesto, es decir con esto angular activará la detección de cambios a la propiedad marcada.
+
+**Otro Ejemplo con Dom seguro**
+
+Existen enlaces, css, img, etc que nuestra app las detectará como inseguras prohibiendo abrirla, si nosotros estamos seguros de la procedencia de estos archivos podemos crear un pipe que nos permita pasar estos datos por algún sanitazer o función que nos permita limpiar/permitir el uso de dichos archivos, para ellos usaremos la clase de angular `DomSanitizer`.
+```ts
+import { Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+@Pipe({
+  name: 'domseguro'
+})
+export class DomseguroPipe implements PipeTransform {
+  constructor(private domSanitizer:DomSanitizer) {}
+
+  transform(value: string): SafeResourceUrl {
+    return this.domSanitizer.bypassSecurityTrustResourceUrl(value);
+  }
+}
+```
+
+## Guard
+Los Guards en Angular, son middlewares que se ejecutan antes de cargar una ruta y determinan si se puede cargar dicha ruta o no, es especialmente util ya que evitamos que los usuarios vean una interfaz a la que no tienen acceso
+
+* **CanActivate:** Mira si el usuario puede acceder a una página determinada.
+* **CanActivateChild:** Mira si el usuario puede acceder a las páginas hijas de una determinada ruta.
+* **CanLoad:** Antes de cargar los recursos `assets` de la ruta.
+* **CanDeactivate:** Antes de intentar salir de la ruta actual, usualmente utilizado para evitar salir de una ruta, si no se han guardado los datos.
+
+```ts
+import { Injectable } from '@angular/core';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthGuard implements CanActivate {
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    return true;
+  }
+}
+```
+Como middleware, estos componentes se ejecutan de manera intermedia antes de determinadas acciones y si retorna `true` la ruta seguiría su carga normal, en caso negativo, el Guard retornaría `false` y la ruta no se cargaría.`
+Para poder usar los guards debemos importarlos en la sección de `providers` en nuestro `app.module.ts` y agregarlo en nuestro archivo de rutas, en las ruta(s) que lo requieran
+```ts
+providers: [AuthGuard]
+```
+```ts
+{path:'home', component: HomeComponent, canActivate:[AuthGuard]}
+```
+
+
+## Módulo
+Los `módulos` son un mecanismos de agrupación lógica de símbolos (componentes, directivas, pipes y servicios) que permite a angular saber las importaciones / exportaciones necesarias para que cierto componente funcione. 
+```ts
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@NgModule({
+  declarations: [],
+  imports: [CommonModule]
+})
+export class ComponentsModule { }
+```
+Los módulos por defecto incluiran el decorador `@NgModule` e importarán el módulo opcional `CommonModule`.
+> El `CommonModule` es un módulo básico de angular que incluira las directivas `NgIf, NgForOf, DecimalPipe, etc`
+
+
+
+Un módulo Angular normalmente está formado por una carpeta completa de componentes, servicios, etc, al igual que también tienen la particularidad de definir las dependencias con otros módulos, esto ultimo es especialmente util ya que cuando queremos deshacernos de una funcionalidad de nuestra aplicación podríamos simplemente eliminar el Módulo Angular correspondiente, con un impacto mínimo en el resto de áreas de la aplicación.
+
+```ts
+@NgModule({
+imports: [ BrowserModule, HttpModule, FormsModule ],
+declarations: [ PersonComponent, ContactComponent, ContactListComponent ],
+providers: [ PersonService, ContactService ],
+exports: [ ContactListComponent, ContactComponent ]
+})
+export class ContactModule {}
+```
+Para poder usar los componentes/servicios/pipes, etc, en otros módulos debemos exportarlos dentro de nuestro decorador `@NgModule` e importar el módulo en el lugar correspondiente
+
+```ts
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ContactModule } from '../contact.module';
+
+@NgModule({
+  declarations: [],
+  imports: [
+    CommonModule,
+    ContactModule
+    ]
+})
+export class ComponentsModule { }
+```
+
+## Rutas
+Los `Rutas` son  
+```ts
+
+```
+
 
 ## Navegación en Angular
 La navegación en angular se basa en disminuir en lo posible la cantidad de data a intercambiar entre el **browser** y el **servidor**, para ello que hace es cargar una sola página (generalmente **index.html**) y después, todas las otras páginas/componentes se refrescan usando **Javascript**; pero sólo **index.html** es una página completa, el resto de las páginas son sólo porciones de HTML que su código Javascript va cambiando **dinámicamente**.
@@ -1251,374 +1670,6 @@ Para poder recibir los datos desde el componente padre debemos llamar la propied
     <app-heroe-tarjeta (hereoSeleccionado)="verHeroe($event)">
     </app-heroe-tarjeta>
 ```
-
-## Guard
-Los Guards en Angular, son middlewares que se ejecutan antes de cargar una ruta y determinan si se puede cargar dicha ruta o no, es especialmente util ya que evitamos que los usuarios vean una interfaz a la que no tienen acceso
-
-* **CanActivate:** Mira si el usuario puede acceder a una página determinada.
-* **CanActivateChild:** Mira si el usuario puede acceder a las páginas hijas de una determinada ruta.
-* **CanLoad:** Antes de cargar los recursos `assets` de la ruta.
-* **CanDeactivate:** Antes de intentar salir de la ruta actual, usualmente utilizado para evitar salir de una ruta, si no se han guardado los datos.
-
-```ts
-import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
-
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthGuard implements CanActivate {
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
-  }
-}
-```
-Como middleware, estos componentes se ejecutan de manera intermedia antes de determinadas acciones y si retorna `true` la ruta seguiría su carga normal, en caso negativo, el Guard retornaría `false` y la ruta no se cargaría.`
-Para poder usar los guards debemos importarlos en la sección de `providers` en nuestro `app.module.ts` y agregarlo en nuestro archivo de rutas, en las ruta(s) que lo requieran
-```ts
-providers: [AuthGuard]
-```
-```ts
-{path:'home', component: HomeComponent, canActivate:[AuthGuard]}
-```
-
-## Pipes
-Los pipes son herramientas de Angular que nos permitirán transformar visualmente la información (no cambián el valor de la misma), entre los pipes tenemos:
-
-#### Uppercase
-Transforma todo el texto a mostrar a mayúscula
-```ts
-value_expression = "Hola Mundo";
-{{ value_expression | uppercase }}
-resultado = HOLA MUNDO ;
-```
-
-#### Lowercase
-Transforma todo el texto a mostrar a minúscula
-```ts
-value_expression = "Hola Mundo";
-{{ value_expression | lowercase }}
-resultado = hola mundo ;
-```
-
-#### Slice
-Permite cortar un texto/arreglo creando así un nuevo valor desde el punto cortado.
-```ts
-value_expression = "Hola Mundo";
-{{ value_expression | slice:3 }}
-resultado = a mundo ;
-```
-También podemos pasar los puntos de inicio y fin del parámetro que que deseamos cortar.
-```ts
-value_expression = "Hola Mundo";
-{{ value_expression | slice:0:3 }}
-resultado = hol ;
-```
-En los arreglos ocurriría igual, podemos pasar la posición de incio y final que deseamos traer.
-```ts
-value_expression = [1,2,3,4,5,6,7,8,9];;
-{{ value_expression | slice:1:5 }}
-resultado = 2,3,4,5 ;
-```
-
-#### Decimal
-Permite formatear un valor tipo number con las reglas que se le estipulen. Siguen los siguientes parametros `{{ value_expression | number [ : digitsInfo [ : locale ] ] }}`
-Donde los parámetros de `digitsInfo` vendrá escrito bajo el siguiente formato:
-`{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}`
-* **minIntegerDigits:** Es el número mínimo de dígitos enteros antes del punto decimal. El valor predeterminado es 1.
-* **minFractionDigits:** El número mínimo de dígitos después del punto decimal. El valor predeterminado es 0.
-* **maxFractionDigits:** El número máximo de dígitos después del punto decimal. El valor predeterminado es 3.
-
-```ts
-value_expression = Math.PI;
-{{ value_expression | number:'1.0-3' }}
-resultado = 3.142;
-
-value_expression = Math.PI;
-{{ value_expression | number:'3.0-3' }}
-resultado = 003.142;
-
-value_expression = Math.PI;
-{{ value_expression | number:'.0-2' }}
-resultado = 3.14;
-```
-> Si no colocamos un `minIntegerDigits` angular traerá todos los números enteros que halle.
-
-#### Percent
-Permite formatear un valor a una cadena de porcentaje, según las reglas estipuladas. Siguen los siguientes parametros `{{ value_expression | percent [ : digitsInfo [ : locale ] ] }}`
-
-```ts
-value_expression = 0.234;
-{{ value_expression | percent }}
-resultado = 23%;
-
-value_expression = 0.234;
-{{ value_expression | percent:'2.2-2' }}
-resultado = 23.40%;
-```
-Las reglas estipuladas siguen las mismas normas que las estipuladas en el pipe `Decimal`
-
-#### Currency
-Permite formatear un valor a una cadena de moneda, según las reglas estipuladas. Siguen los siguientes parametros `{{ value_expression | currency [ : currencyCode [ : display [ : digitsInfo [ : locale ] ] ] ] }}`
-
-```ts
-value_expression = 1234.5;
-{{ value_expression | currency }}
-resultado = $1234.5;
-
-value_expression = 1234.5;
-{{ value_expression | currency:'EUR' }}
-resultado = €1234.5;
-
-value_expression = 1234.5;
-{{ value_expression | currency:'CAD$ ':'symbol':'.0-0' }}
-resultado = CAD$ 1234.5;
-
-value_expression = 1234.5;
-{{ value_expression | currency:'LTM ':'symbol':'.0-0' }}
-resultado = LTM 1234.5;
-```
-Las reglas estipuladas permiten personalizar la moneda a mostrar en caso de ser necesario como ocurre con la moneda inventada `LTM`
-
-
-#### Json
-Permite convertir un objeto en su representación tipo JSON para mostrar
-
-```ts
-value_expression = {nombre:'Logan', clave:'Wolverine', edad:500,
-  direccion:{calle:'Primera',casa:20}};
-{{ value_expression }}
-resultado = [object Object];
-
-value_expression = {nombre:'Logan', clave:'Wolverine', edad:500,
-  direccion:{calle:'Primera',casa:20}};
-{{ value_expression | json }}
-resultado = { "nombre": "Logan", "clave": "Wolverine", "edad": 500, "direccion": { "calle": "Primera", "casa": 20 } };
-```
-Si deseamos que el resultado se mire más ordenado podemos usar la etiqueta HTML `<pre></pre>`.
-```html
-<pre>
-  {{ heroe | json }}
-</pre>    
-```
-El cual nos mostrará como resultado, es decir una información más ordenada y facil de leer.
-```json
-          {
-  "nombre": "Logan",
-  "clave": "Wolverine",
-  "edad": 500,
-  "direccion": {
-    "calle": "Primera",
-    "casa": 20
-  }
-} 
-```
-
-#### Async
-
-Permite resolver situaciones de programación asíncrona desde el HTML
-
-```ts
-value_expression = new Promise<string>((resolve) => {
-                          resolve('llego la data');
-                      });
-{{ value_expression }}
-resultado = [object Promise];
-
-value_expression = new Promise<string>((resolve) => {
-                          resolve('llego la data'); 
-                      });
-{{ value_expression | async }}
-resultado = 'llego la data';
-```
-En caso de existir un error o entrar en el `reject` la data no se mostrará salvo que se haya trabajado previamente el `catch`
-
-#### Date
-
-Permite formatear un valor de fecha con las reglas configuradas
-`{{ value_expression | date [ : format [ : timezone [ : locale ] ] ] }}`
-
-```ts
-value_expression = new Date();
-{{ value_expression }}
-resultado = Thu Apr 29 2021 20:07:39 GMT-0400 (hora de Venezuela);
-
-value_expression = new Date();
-{{ value_expression | date }}
-resultado = Apr 29, 2021;
-
-value_expression = new Date();
-{{ value_expression | date:'medium' }}
-resultado = Apr 29, 2021, 8:10:04 PM;
-
-value_expression = new Date();
-{{ value_expression | date:'short' }}
-resultado =  4/29/21, 8:10 PM;
-```
-Angular trae por default varias opciones predefinidas para el formateo de fecha como sería en el caso de `medium`, `short`, etc. Si deseamos colocar un formato personalizado debemos colocarlo entre comillas simples después del `date` siguiendo las configuraciones encontradas en la documentación de angular
-
-```ts
-value_expression = new Date();
-{{ value_expression | date:'MMMM - dd' }}
-resultado = April - 29;
-```
-Por defecto el idioma en el cual se mostrarán las fechas sera el ingles, si deseamos cambiar o agregar otros idiomas debemos de agregar librerías de dichos idiomas ejecutando `ng add @angular/localize` e importando en el `app.module.ts`
-```ts
-import { LOCALE_ID } from '@angular/core';
-// la terminación es según el idioma en este caso es=español
-import '@angular/common/locales/global/es';
-
-providers: [
-    { provide: LOCALE_ID, useValue: 'es' }    //linea agregada
-  ],
-```
-Después de agregar dichas dependencias la app tomará como lenguaje principal el asignado en el `providers`, de forma adicional podemos importar más idiomas y usarlos en la opción local de nuestro pipe, por ejemplo si importamos el frances `import '@angular/common/locales/global/fr'` y agregamos como opción de date `fr` nos quedaría
-```ts
-value_expression = new Date();
-{{ value_expression | date:'MMMM - dd':'':'fr }}
-resultado = avril - 30;
-```
-
-#### Personalizado
-Los pipes personalizados pueden ser creado mediante Angular CLI con el comando `ng g p ruta` los cuales por buenas practicas se suelen crear en una carpeta de nombre **pipes**, si usamos el comando `ng g p pipes/capitalizado` nos creará en la ruta `src/app/pipes`
-* **capitalizado.pipe.spec.ts**: archivo de pruebas del pipe
-* **capitalizado.pipe.ts**: archivo de configuración del pipe
-
-De manera adicional nos actualizará las declaraciones con el nuevo elemento agregado en el `app.module.ts`, el pipe creado nos generará un archivo TS del tipo
-```ts
-import { Pipe, PipeTransform } from '@angular/core';
-@Pipe({
-  name: 'capitalizado'
-})
-export class CapitalizadoPipe implements PipeTransform {
-
-  transform(value: unknown, ...args: unknown[]):unknown {  
-    return null;
-  }
-}
-```
-Donde `value` representará el valor enviado desde el pipe en el html, mientras que `...args` recibirá la cantidad de argumentos que se deseen enviar
-```ts
-value_expression = 'fErNaNdO';
-{{ value_expression | capitalizado:1:true:'Hola'}}
-value = 'fErNaNdO'
-...args= [1,true,'Hola'];
-```
-De igual forma podemos atrapar los argumentos desde el pipe, por ejemplo si enviamos los mismos argumentos anteriores podemos indicarle lo que recibirá y el tipo
-```ts
-transform(
-  value: unknown, 
-  edad: number, 
-  activo:boolean, 
-  mensaje: string):unknown {  
-  return null;
-}
-```
-
-El decorador `@Pipe` recibe multiples propiedades entre ellas tenemos
-```ts
-@Pipe({
-  name: 'capitalizado',
-  pure: false
-})
-```
->**name:** Nombre del pipe
->**pure:** Por default no se coloca y viene seteada en `true`, pero al cambiarla a `false` detectará los cambios impuros dentro de un objeto compuesto, es decir con esto angular activará la detección de cambios a la propiedad marcada.
-#### DomSeguro
-Existen enlaces, css, img, etc que nuestra app las detectará como inseguras prohibiendo abrirla, si nosotros estamos seguros de la procedencia de estos archivos podemos crear un pipe que nos permita pasar estos datos por algún sanitazer o función que nos permita limpiar/permitir el uso de dichos archivos, para ellos usaremos la clase de angular `DomSanitizer`.
-```ts
-import { Pipe, PipeTransform } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-@Pipe({
-  name: 'domseguro'
-})
-export class DomseguroPipe implements PipeTransform {
-  constructor(private domSanitizer:DomSanitizer) {}
-
-  transform(value: string): SafeResourceUrl {
-    return this.domSanitizer.bypassSecurityTrustResourceUrl(value);
-  }
-}
-```
-## Peticiones HTTP
-La mayoría de las aplicaciones front-end necesitan comunicarse con un servidor a través del protocolo HTTP para descargar o cargar datos y acceder a otros servicios back-end. Para usar el cliente HTTP de angular para hacer peticiones y consumir API REST usando los distintos métodos (GET, POST, PUT, DELETE, etc), es necesario importar el módulo propio de angular `HttpClientModule` en el `app.module.ts`
-```ts
-import { HttpClientModule } from "@angular/common/http";
-
-@NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    RouterModule.forRoot(ROUTES, {useHash:true})
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
-```
-Seguido de esto importamos la clase `HttpClient` de `@angular/common/http` en el componente/servicio donde lo vallamos a utilizar y lo inyectamos a su constructor 
-```ts
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
-@Injectable()
-export class ConfigService {
-  constructor(private http: HttpClient) { }
-}
-```
-La clase `HttpCliente` nos traerá los distintos métodos (GET, POST, PUT, DELETE) los cuales usaremos para relizar las peticiones
-```ts
-url = 'https://restcountries.eu/rest/v2/lang/es'
-params = {name:'Fernando'}
-// Get
-this.http.get(url)
-// Post
-this.http.post(url, params)
-//Put
-this.http.put(url, params)
-// Delete
-this.http.post(url+'?id')
-```
-Estas peticiones devolveran un Observable con el tipo de dato que se le indiquen, por lo que es recomendable indicarlo en la función que llamará la petición
-```ts
-getProductos(): Observable<any>{
-    return this.http.get(this.url+'productos');
-}
-```
-
-#### GET
-El método `GET` solicita una representación de un recurso específico. Las peticiones que usan el método GET sólo deben recuperar datos.
-
-#### POST
-El método `POST` se utiliza para enviar una entidad a un recurso en específico, causando a menudo un cambio en el estado o efectos secundarios en el servidor.
-En angular un petición de tipo `POST` se compone de:
-*   **`url`:** Sera de tipo `string` y representará endpoint a usar.
-*   **`body`:** Puede ser de tipo `any` o de algún tipo que se le especifique en concreto (Por lo general suele ser un objeto) donde se almacenará la data. 
-*   **`options`:** Es un objeto (*opcional*) en donde podremos pasarle campos extras como el headers de la petición en caso de ser requerido
-
-```ts
-// Una petición post estandar solo lleva la url y el body
-crearHeroe(heroe: HeoreModel): Observable<any> {
-  return this.http.post(url, heroe)
-}
-
-// en caso de desear agregar un campo opcional quedaría
-crearHeroe(heroe: HeoreModel): Observable<any> {
-  let headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded');
-  return this.http.post(url, heroe, {headers: headers})
-}
-```
-
-#### PUT
-El modo `PUT` reemplaza todas las representaciones actuales del recurso de destino con la carga útil de la petición.
-
-#### DELETE
-El método `DELETE` borra un recurso en específico.
-
 
 ## RxJS
 La RxJS *(Reactive Extensions)* es una librería muy útil de Javascript, que te ayuda a gestionar flujos de datos asíncronos *(Programación Reactiva)*.
