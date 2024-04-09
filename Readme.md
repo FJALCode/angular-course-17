@@ -605,6 +605,28 @@ Dentro de la directiva `ngFor` podemos agregar código adicional separandolos co
 </ul>
 ```  
 
+Existen otras propiedades que podremos usar con el NgFor
+* **index**: number: El índice del elemento actual en el iterable.
+* **count**: number: La longitud del iterable.
+* **first**: boolean: Verdadero cuando el elemento es el primer elemento del iterable.
+* **last**: boolean: Verdadero cuando el elemento es el último elemento del iterable.
+* **even**: boolean: Verdadero cuando el elemento tiene un índice par en el iterable.
+* **odd**: boolean: Verdadero cuando el elemento tiene un índice impar en el iterable.
+
+```html
+<ul class="list-group">
+    <li *ngFor="let nombrePersonajes of personajes; 
+      let count = count;
+      let first = isFirst;
+      let last = isLast;
+      let even = isEven;
+      let odd = isOdd;">
+
+        {{ i + 1 }} - {{ nombrePersonajes }}
+    </li>
+</ul>
+```  
+
 #### ngStyle
 Una directiva de atributo que actualiza los estilos del elemento HTML que lo contiene desde el `component.ts`. Establece una o más propiedades de estilo, especificadas como pares clave-valor separados por dos puntos.
 
