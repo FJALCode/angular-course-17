@@ -41,7 +41,11 @@
   * [Date](#date)
   * [Pipes personalizados](#pipes-personalizados) 
 * [Guard](#guard)
-* [Módulo](#módulo)
+* [Módulos](#módulos)
+* [Decoradores](#decoradores)
+  * [@Input](#input)
+  * [@Output](#output)
+  * [@ViewChild](#viewChild)
 * [Rutas](#rutas)
 * [Navegación en Angular](#navegación-en-angular)
   * [Routes File](#routes-file)
@@ -51,9 +55,6 @@
   * [Router](#router)
   * [ActivatedRoute](#activatedroute)  
   * [Rutas Anidadas](#rutas-anidadas)  
-* [Decoradores](#decoradores)
-  * [@Input](#input)
-  * [@Output](#output)
 * [RxJS](#rxjs)
   * [Partes del RxJS](#partes-del-rxjs)
   * [Patrón Iterador](#patrón-iterador)
@@ -1122,7 +1123,7 @@ providers: [AuthGuard]
 ```
 
 
-## Módulo
+## Módulos
 Los `módulos` son un mecanismos de agrupación lógica de símbolos (componentes, directivas, pipes y servicios) que permite a angular saber las importaciones / exportaciones necesarias para que cierto componente funcione. 
 ```ts
 import { NgModule } from '@angular/core';
@@ -1166,6 +1167,154 @@ import { ContactModule } from '../contact.module';
 })
 export class ComponentsModule { }
 ```
+
+## Decoradores
+Un decorador es una clase especial de declaración que puede acoplarse a una clase, método, propiedad o parámetro y extiende una función agregandole información y funcionalidad. Los decoradores se reconocen ya que inician con un `@` y se expresan de la siguiente manera
+```ts
+@decorador
+clase/método/propiedad/parámetro
+```
+
+#### @Input
+Los decoradores Input son una clase que permite pasar parametros desde el componente padre al hijo, para poderlo utilizar debemos importar en el componente hijo el decorador `Input` que se encuentra en `@angular/core` y colocar el decorar `@Input()` a la propiedad que se podra manipular desde el padre
+
+```ts
+import { Component, Input} from '@angular/core';
+
+@Component({
+  selector: 'app-heroe-tarjeta',
+  templateUrl: './heroe-tarjeta.component.html'
+})
+export class HeroeTarjetaComponent {
+  @Input() public heroeTarjeta: string = '';
+
+  constructor() {}
+}
+```
+> Podemos colocarle valores predeterminados a la propiedad de modo que si no se entrega un valor asumiría que debe usar ese.
+`@Input() nombre = 'valor de la propiedad';`
+
+Para poder hacer uso de las propiedades de los Input desde el componente padre debemos llamarla y/o asignarles valores dentro de las etiquetas html del padre
+
+```html
+  <app-heroe-tarjeta [heroeTarjeta]="valor a mandar">
+  </app-heroe-tarjeta>
+```
+> La propiedad puede recibir cualquier tipo de valor, bien sea proveniente de otras variables, funciones, etc.
+
+
+#### @Output
+Los decoradores Output son una clase que permite pasar parametros desde el componente hijo al padre, para poderlo utilizar debemos importar en el componente hijo el decorador `Output` y el `EventEmitter` que se encuentra en `@angular/core` y colocar el decorar `@Output()` a la propiedad que se podra manipular desde el padre la cual sera del tipo `EventEmitter<Tipo>`
+
+```ts
+import { Component, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-heroe-tarjeta',
+  templateUrl: './heroe-tarjeta.component.html'
+})
+export class HeroeTarjetaComponent  {
+  @Output() hereoSeleccionado: EventEmitter<number>;
+
+  constructor() {
+    this.hereoSeleccionado = new EventEmitter();
+  }
+
+  verHeroe(){
+    this.hereoSeleccionado.emit(this.index);
+  }
+}
+```
+Toda propiedad de tipo `EventEmitter` debe ser inicializada desde el constructor y dicha propiedad tendra un método `emit` el cual enviará la información indicada al componente padre.
+Para poder recibir los datos desde el componente padre debemos llamar la propiedad del hijo colocandola entre parentesis e igualarla a la propiedad/función propia del padre que requiramos usar. Para recibir el evento o valor emitido del componente hijo vamos a usar la palabra reservada `$event`
+```html
+    <app-heroe-tarjeta (hereoSeleccionado)="verHeroe($event)">
+    </app-heroe-tarjeta>
+```
+
+
+### @ViewChild
+El decorador `ViewChild` configura una consulta de vista. El detector de cambios busca el primer elemento o la directiva que coincida con el selector en la vista DOM. Si la vista DOM cambia y un nuevo hijo coincide con el selector, la propiedad se actualiza.
+
+La nomenclatura usada para comunicarse con un componente hijo sería `@ViewChild(selector) nombreDePropiedad: TipoDePropiedad`
+
+```ts
+import { Component, ViewChild } from '@angular/core';
+import { HijoComponent } from '../hijo/hijo.component';
+@Component({
+  selector: 'app-padre',
+  templateUrl: './padre.component.html',
+  styles: []
+})
+export class PadreComponent {
+  @ViewChild(HijoComponent) hijo: HijoComponent;
+}
+```
+Una vez establecida la comunicación con el elemento hijos hacemos referencia a la propiedad creada en `PadreComponent` llamada `hijo` seguido del método o propiedad que queremos llamar en `HijoComponent`.
+
+```ts
+import { Component, ViewChild } from ‘@angular/core’;
+import { HijoComponent } from ‘../hijo/hijo.component’;
+@Component({
+  selector: ‘app-padre’,
+  templateUrl: ‘./padre.component.html’,
+  styles: []
+})
+  export class PadreComponent {
+    @ViewChild(HijoComponent) hijo: HijoComponent;
+
+    enviarMensaje() {
+      this.hijo.saludo('hola desde el padre');
+    }
+}
+```
+
+El decorador `ViewChild` no solo es para la comunicación entre componentes, con este decorador también podras obtener el valor de un input, manejar directivas o etiquetas HTML.
+
+```ts
+@Component({
+  selector: 'my-app',
+  template: `
+    <h1 #header>My ViewChild Demo</h1>
+    <system-message></system-message> 
+  `
+})
+export class AppComponent implements AfterViewInit {
+  @ViewChild('header') header: ElementRef;
+  ngAfterViewInit () {
+    // Ahora puedes utilizar el componente hijo
+  }
+}
+```
+Al buscar acceder a elementos DOM nativos habrá que colocarles una referencia en la plantilla, en este caso `#someInput`
+
+```html
+<input #someInput placeholder="Your favorite sea creature">
+```
+Dentro del TS deberemos hacer llamada a este componente usando comillas simples `'someInput'` e indicando que es de tipo `ElementRef`
+
+```ts
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent implements AfterViewInit {
+  @ViewChild('someInput') someInput: ElementRef;
+  ngAfterViewInit() {
+    this.someInput.nativeElement.value = 'Whale!';
+  }
+}
+```
+Es importante buscar colocar el tipo de ElementRef al que se hará alusión, en este caso al ser un `input` quedaría
+```ts
+@ViewChild('someInput') someInput: ElementRef<HTMLInputElement>;
+```
+
+
+
+
 
 ## Rutas
 Los `Rutas` son  
@@ -1625,73 +1774,6 @@ Dando como resultado un path del tipo
 { path: 'usuario/:id', component: UsuarioComponent, children: USUARIO_ROUTES},
 ```
 En caso de desear obtener los parametros enviados por el padre dentro de una ruta hija debemos hacer uso del [ActivatedRoute](#activatedroute) 
-
-
-## Decoradores
-Un decorador es una clase especial de declaración que puede acoplarse a una clase, método, propiedad o parámetro y extiende una función agregandole información y funcionalidad. Los decoradores se reconocen ya que inician con un `@` y se expresan de la siguiente manera
-```ts
-@decorador
-clase/método/propiedad/parámetro
-```
-
-#### @Input
-Los decoradores Input son una clase que permite pasar parametros desde el componente padre al hijo, para poderlo utilizar debemos importar en el componente hijo el decorador `Input` que se encuentra en `@angular/core` y colocar el decorar `@Input()` a la propiedad que se podra manipular desde el padre
-
-```ts
-import { Component, Input} from '@angular/core';
-
-@Component({
-  selector: 'app-heroe-tarjeta',
-  templateUrl: './heroe-tarjeta.component.html'
-})
-export class HeroeTarjetaComponent {
-  @Input() public heroeTarjeta: string = '';
-
-  constructor() {}
-}
-```
-> Podemos colocarle valores predeterminados a la propiedad de modo que si no se entrega un valor asumiría que debe usar ese.
-`@Input() nombre = 'valor de la propiedad';`
-
-Para poder hacer uso de las propiedades de los Input desde el componente padre debemos llamarla y/o asignarles valores dentro de las etiquetas html del padre
-
-```html
-  <app-heroe-tarjeta [heroeTarjeta]="valor a mandar">
-  </app-heroe-tarjeta>
-```
-> La propiedad puede recibir cualquier tipo de valor, bien sea proveniente de otras variables, funciones, etc.
-
-
-
-#### @Output
-Los decoradores Output son una clase que permite pasar parametros desde el componente hijo al padre, para poderlo utilizar debemos importar en el componente hijo el decorador `Output` y el `EventEmitter` que se encuentra en `@angular/core` y colocar el decorar `@Output()` a la propiedad que se podra manipular desde el padre la cual sera del tipo `EventEmitter<Tipo>`
-
-```ts
-import { Component, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
-
-@Component({
-  selector: 'app-heroe-tarjeta',
-  templateUrl: './heroe-tarjeta.component.html'
-})
-export class HeroeTarjetaComponent  {
-  @Output() hereoSeleccionado: EventEmitter<number>;
-
-  constructor() {
-    this.hereoSeleccionado = new EventEmitter();
-  }
-
-  verHeroe(){
-    this.hereoSeleccionado.emit(this.index);
-  }
-}
-```
-Toda propiedad de tipo `EventEmitter` debe ser inicializada desde el constructor y dicha propiedad tendra un método `emit` el cual enviará la información indicada al componente padre.
-Para poder recibir los datos desde el componente padre debemos llamar la propiedad del hijo colocandola entre parentesis e igualarla a la propiedad/función propia del padre que requiramos usar. Para recibir el evento o valor emitido del componente hijo vamos a usar la palabra reservada `$event`
-```html
-    <app-heroe-tarjeta (hereoSeleccionado)="verHeroe($event)">
-    </app-heroe-tarjeta>
-```
 
 ## RxJS
 La RxJS *(Reactive Extensions)* es una librería muy útil de Javascript, que te ayuda a gestionar flujos de datos asíncronos *(Programación Reactiva)*.
