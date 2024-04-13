@@ -32,6 +32,7 @@
 * [Pipes](#pipes)
   * [Uppercase](#uppercase)
   * [Lowercase](#lowercase)
+  * [TitleCase](#titlecase)
   * [Slice](#slice)
   * [Decimal](#decimal)
   * [Percent](#percent)
@@ -39,14 +40,34 @@
   * [Json](#json)
   * [Async](#async)
   * [Date](#date)
+  * [i18nSelect](#i18nselect)
+  * [i18Plural](#i18plural)
+  * [KeyValue](#keyvalue)  
   * [Pipes personalizados](#pipes-personalizados) 
 * [Guard](#guard)
 * [Módulos](#módulos)
 * [Decoradores](#decoradores)
   * [@Input](#input)
   * [@Output](#output)
-  * [@ViewChild](#viewChild)
-* [Rutas](#rutas)
+  * [@ViewChild](#viewchild)
+  * [@ViewChildren](#viewchildren)
+* [Template Forms](#template-forms)
+* [Reactive Forms](#reactive-forms)
+  * [FormControl](#formcontrol)
+  * [FormGroup](#formgroup)
+      * [FormGroup.get()](#formgroupget)
+      * [FormGroup.setValue()](#formgroupsetvalue)
+      * [FormGroup.reset()](#formgroupreset)
+      * [FormGroup.valueChanges](#formgroupvaluechanges)
+      * [FormGroup.statusChanges](#formgroupstatuschanges)
+  * [FormBuilder](#formbuilder)
+  * [Nested Forms](#nested-forms)
+  * [FormArray](#formrray)
+      * [FormArray.push()](#formarraypush)
+      * [FormArray.removeAt()](#formarrayremoveat)
+  * [Validators](#validators)
+    * [Validaciones sincrónicas](#validaciones-sincrónicas)
+    * [Validaciones asíncronas](#validaciones-asíncronas)
 * [Navegación en Angular](#navegación-en-angular)
   * [Routes File](#routes-file)
   * [RouterModule.forRoot vs RouterModule.forChild](#routermoduleforroot-vs-routermoduleforchild)
@@ -64,29 +85,15 @@
     * [from()](#from)
     * [Pipe()](#pipe)
     * [Map()](#map)  
+    * [debounceTime()](#debounceTime)
   * [Suscribe()](#suscribe)   
   * [Subjects](#subjects)
   * [Operadores RxJs vs Función de Orden Superior](#operadores-rxjs-vs-función-de-orden-superior)
+* [i18n](#i18n)
+  * [Cambio global del idioma](#cambio-global-del-idioma)
 * [Storage](#storage)
   * [Local Storage](#local-storage)
-  * [Session Storage](#session-storage)
-* [Template Forms](#template-forms)
-* [Reactive Forms](#reactive-forms)
-  * [FormControl](#formcontrol)
-  * [FormGroup](#formgroup)
-      * [FormGroup.get()](#formgroupget)
-      * [FormGroup.setValue()](#formgroupsetvalue)
-      * [FormGroup.reset()](#formgroupreset)
-      * [FormGroup.valueChanges](#formgroupvaluechanges)
-      * [FormGroup.statusChanges](#formgroupstatuschanges)
-  * [FormBuilder](#formbuilder)
-  * [Nested Forms](#nested-forms)
-  * [FormArray](#formrray)
-      * [FormArray.push()](#formarraypush)
-      * [FormArray.removeAt()](#formarrayremoveat)
-  * [Validators](#validators)
-    * [Validaciones sincrónicas](#validaciones-sincrónicas)
-    * [Validaciones asíncronas](#validaciones-asíncronas)   
+  * [Session Storage](#session-storage) 
 * [Bootstrap](#bootstrap)
 * [Angular Material](#angular-material)
   * [Instalación y Configuración](#instalación-y-configuración)
@@ -99,7 +106,6 @@
 Angular es un lenguaje basado en `componentes`, por lo general una app de angular se basa en múltiples componentes, como pudiesen ser el menú de navegación, barra lateral, páginas y subpáginas, pie de páginas, etc.
 
 <img src="img/componentes_angular.png" width="auto;"/>
-
 
 ## Combados básicos
 *   **`ng new app-name`:** Permite la creación de un nuevo proyecto de Angular bajo el nombre `app-name` y parámetros indicados.
@@ -847,6 +853,14 @@ value_expression = "Hola Mundo";
 resultado = hola mundo ;
 ```
 
+#### TitleCase
+Transforma todo el texto a mostrar a minúscula
+```ts
+value_expression = "Hola Mundo";
+{{ value_expression | lowercase }}
+resultado = hola mundo ;
+```
+
 #### Slice
 Permite cortar un texto/arreglo creando así un nuevo valor desde el punto cortado.
 ```ts
@@ -1023,6 +1037,30 @@ Después de agregar dichas dependencias la app tomará como lenguaje principal e
 value_expression = new Date();
 {{ value_expression | date:'MMMM - dd':'':'fr }}
 resultado = avril - 30;
+```
+
+#### i18nSelect
+Transforma todo el texto a mostrar a minúscula
+```ts
+value_expression = "Hola Mundo";
+{{ value_expression | lowercase }}
+resultado = hola mundo ;
+```
+
+#### i18Plural
+Transforma todo el texto a mostrar a minúscula
+```ts
+value_expression = "Hola Mundo";
+{{ value_expression | lowercase }}
+resultado = hola mundo ;
+```
+
+#### KeyValue
+Transforma todo el texto a mostrar a minúscula
+```ts
+value_expression = "Hola Mundo";
+{{ value_expression | lowercase }}
+resultado = hola mundo ;
 ```
 
 #### Pipes personalizados
@@ -1312,717 +1350,32 @@ Es importante buscar colocar el tipo de ElementRef al que se hará alusión, en 
 @ViewChild('someInput') someInput: ElementRef<HTMLInputElement>;
 ```
 
+### @ViewChildren
+El decorador `ViewChildren` similar al `ViewChild` nos permite acceder a elementos de nuestro DOM, aunque se diferencia de este en que el `ViewChildren` obtendra todos los elementos que existan en nuestro template que sean del tipo que usamos como selector, es por ello que junto a él usamos el `QueryList` el cual no es más que una lista no modificable de elementos que Angular .
 
-
-
-
-## Rutas
-Los `Rutas` son  
-```ts
-
-```
-
-
-## Navegación en Angular
-La navegación en angular se basa en disminuir en lo posible la cantidad de data a intercambiar entre el **browser** y el **servidor**, para ello que hace es cargar una sola página (generalmente **index.html**) y después, todas las otras páginas/componentes se refrescan usando **Javascript**; pero sólo **index.html** es una página completa, el resto de las páginas son sólo porciones de HTML que su código Javascript va cambiando **dinámicamente**.
-
-#### Routes File
-Para el manejo de la navegación de las rutas creamos un archivo de nombre `app.routes.ts` dentro de la carpeta `app`, dicho archivo estará compuesto por una constante de tipo `Routes` que poseerá todos las rutas a navegar
-```ts
-import { Routes, RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
-import { HeroesComponent } from './components/heroes/heroes.component';
-
-const ROUTES: Routes = [
-    { path: 'home', component: HomeComponent },
-    { path: '**', pathMatch:'full', redirectTo: 'home'}
-];
-
-@NgModule({
-    imports: [RouterModule.forRoot(ROUTES)],
-    exports: [RouterModule]
-})
-export class AppRoutesModule {}
-```
->    Utilizaremos el path `{ path: '**', pathMatch:'full', redirectTo: 'home'}`, para generar una ruta por defecto en caso que la ruta colocada no exista, el mismo siempre se debe colocar al final de todas las rutas.
-
-Este módulo debe ser importado en el archivo base `app.modules.ts`
-```ts
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-import { AppRoutesModule  } from "./app.routes";
-
-@NgModule({
-  declarations: [],
-  imports: [
-    BrowserModule,
-    AppRoutesModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
-```
-Para poder renderizar la web indicada por la ruta debemos agregar la etiqueta `router-outlet`donde deseemos que se valla a renderizar las rutas, en este caso lo haríamos en `app.component.html`
-```html
-<app-navbar></app-navbar>
-<router-outlet></router-outlet>
-```
-Otro método para generar las rutas es generar el código directamente desde desde el archivo `app.module.ts`, es decir en nuestro archivo de rutas tendríamos algo como
-```ts
-import { Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-export const ROUTES: Routes = [
-    { path: 'home', component: ArtistaComponent },
-    { path: '', component: HomeComponent },
-    { path: '**', component: HomeComponent }
-];
-```
-Mientras que en nuestro `app.module.ts` importariamos la librería `RouterModule` de angular y el archivo `app.route.ts` que creamos.
-```ts
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { RouterModule } from "@angular/router";
-
-import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.
-import { ROUTES } from "./app.routes";
-
-@NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent
-  ],
-  imports: [
-    BrowserModule,
-    RouterModule.forRoot(ROUTES, {useHash:true})
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
-```
-> El `{ useHash: true }`, permitirá que la ruta del proyecto a mostrar incluya un `#` dando como resultado `http://localhost:4200/#/home`
-
-#### RouterModule.forRoot vs RouterModule.forChild
-Al momento de inyectar las configuraciones en nuestro archivo de rutas nos toparemos con 2 métodos a importar, el `forRoot()` y `forChild()`
-Utilizaremos el método `forRoot()` cuando estemos úbicados en el módulo principal de la APP por lo general llamado `AppRoutingModule`, este módulo contiene  todas las directivas, las rutas, y el propio servicio del router, en pocas palabras es el primer módulo que se carga cuando se ejecuta la aplicación por primera vez 
-```ts
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-
-const routes: Routes = [
-  { path: '', component: HomeComponent }
-];
-
-@NgModule({
-  //Sección a usar forRoot() o forChild()
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule {}
-```
-Utilizaremos `forChild()` al momento de crea módulos hijos con sus propios archivos de rutas, este tipo de modalidad de trabajo es de suma importancia cuando tenemos aplicaciones muy grande ya que permite la carga bajo demanda o [Lazy Loading](#lazy-loading)
-> **NOTA:** Los siguientes archivos de `AmericaRoutingModule` y `EuropaRoutingModule` serán referenciados en la sección de [Lazy Loading](#lazy-loading)
-```ts
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { EspanaComponent } from './espana/espana.component';
-import { FranciaComponent } from './francia/francia.component';
-import { ItaliaComponent } from './italia/italia.component';
-
-
-const routes: Routes = [
-  {
-    path: 'espana',
-    component: EspanaComponent
-  },
-  {
-    path: 'francia',
-    component: FranciaComponent
-  },
-  {
-    path: 'italia',
-    component: ItaliaComponent
-  } 
-];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class EuropaRoutingModule { }
-```
-```ts
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { ChileComponent } from './chile/chile.component';
-import { ArgentinaComponent } from './argentina/argentina.component';
-import { UruguayComponent } from './uruguay/uruguay.component';
-
-const routes: Routes = [
-  {
-    path: 'chile',
-    component: ChileComponent
-  },
-  {
-    path: 'argentina',
-    component: ArgentinaComponent
-  },
-  {
-    path: 'uruguay',
-    component: UruguayComponent
-  }  
-];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class AmericaRoutingModule { }
-```
-
-#### Lazy Loading
-El Lazy Loading o carga perezosa nos permite organizar una aplicación Angular a fin que la misma no cargue en forma completa toda la aplicación web en una única llamada al servidor, sino que retrace la carga hasta el momento de su utilización (carga bajo demanda).
-Esta forma de particionar una aplicación y su carga por partes es de suma importancia cuando tenemos aplicaciones muy grandes y tiene como beneficio que el usuario no tenga que esperar mucho tiempo en la carga inicial de la aplicación. Como desventaja podríamos decir que cuando el usuario accede a otras secciones de la aplicación también tenga que esperar que se recuperen del servidor.
-Para simular un Lazy Loading, continuaremos con los archivos routing usados en [RouterModule.forRoot vs RouterModule.forChild](#routermoduleforroot-vs-routermoduleforchild). Acá tendremos 2 módulos (`AmericaModule` & `EuropaModule`) que alojaran sus clases especificas y donde cada módulo administrará las rutas hijas anterioremente creadas
-```ts
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-@NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-    AmericaRoutingModule
-  ]
-})
-export class AmericaModule { }
-```
-```ts
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-@NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-    EuropaRoutingModule
-  ]
-})
-export class EuropaModule { }
-```
-> Es importan recordar importar estas rutas hijas
-
-Después de crear nuestro módulos hijos procedemos a codificar las rutas del módulo principal de nuestra aplicación, para ello abrimos el archivo `app-routing.module.ts` y especificamos la sintaxis para hacer la carga de los otros módulos con Lazy Loading:
+La nomenclatura usada para comunicarse con los componentes del DOM sería `@ViewChildren(selector) nombreDePropiedad: QueryList<TipoDePropiedad>;`
 
 ```ts
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AmericaComponent } from './america/america.component';
-import { EuropaComponent } from './europa/europa.component';
-
-const routes: Routes = [
-  {
-    path: 'america',
-    component: AmericaComponent,
-    loadChildren: () => import('./america/america.module').then(m => m.AmericaModule)
-  },
-  {
-    path: 'europa',
-    component: EuropaComponent,
-    loadChildren: () => import('./europa/europa.module').then(m => m.EuropaModule)
-  }
-]
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
-```
-Podemos ver que la sintaxis para la carga diferida usa la propiedad `loadChildren` seguida de la función `import` para las importaciones dinámicas del módulo indicado en el parámetro. La ruta de importación es la ruta relativa al módulo:
-```ts
-loadChildren: () => import('./america/america.module').then(m => m.AmericaModule)
-```
-
-#### RouterLink y RouterLinkActive
-El `RouterLink` es una directiva que permite la navegación entre las distintas rutas de nuestra app, la misma se colocará en nuestro archivo HTML de la siguiente manera
-```html
-<ul class="navbar-nav mr-auto">
-    <li class="nav-item">
-        <a class="nav-link" [routerLink]="['home']">Home</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" routerLink="heroes">Heroes</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" [routerLink]="['about']">About</a>
-    </li>
-</ul>
-```
-El router link se puede con o sin corchetes, la diferencia principal entre ambos es que sin corchetes estaríamos pasando una cadena de caracteres, es decir un valor no modificable, mientras que con corchete se puede pasar tanto una propiedad como diversos parametros en caso de ser necesario
-```html
-<ul class="navbar-nav mr-auto">
-    <li class="nav-item">
-        <a class="nav-link" [routerLink]="routerLinkVariable">Home</a>
-    </li>
-    <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="[routerLinkVariable,routerLinkDynamicParameter]">Home2</a>
-    </li>
-</ul>
-```
-```ts
-export class NavbarComponent  {
-  public routerLinkVariable= "/home";
-  public routerLinkDynamicParameter= 123;
-
-  updateRouterLinkVariable(){
-    this.routerLinkVariable="/about";
-  }
-}
-```
-En el caso del `home2` la ruta que estaríamos pasando al hacer click sería del tipo `http://miruta/home/123`. 
-
-
-El `RouterLinkActive` es una propiedad que va a permitir colocar la(s) clase(s) que se estipulen dentro del elemento siempre que exista un elemento hijo de tipo `RouterLink` al cual se le de click
-```html
-<ul class="navbar-nav mr-auto">
-    <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/home']">Home</a>
-    </li>
-    <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/heroes']">Heroes</a>
-    </li>
-    <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/about']">About</a>
-    </li>
-</ul>
-```
-En este caso al dar click a `home` el `routerLinkActive` agregará la clase `active` a la etiqueta `<li>` donde se encuentra.
-
-#### Router
-Las navegación entre las rutas pueden venir dadas a través del html con el `RouterLink` anteriormente mencionado o desde el TS importando la librería `Router` de angular
-
-```ts
-import { Component } from '@angular/core';
-import { Router } from "@angular/router";
-
 @Component({
-  selector: 'app-heroes',
-  templateUrl: './heroes.component.html'
+  selector: 'my-app',
+  template: `
+    <h1 #header>My App</h1>
+    <system-message message="First message"></system-message>
+    <system-message message="Second message"></system-message> 
+    <system-message message="Third message"></system-message> 
+  `
 })
-export class HeroesComponent {
-  constructor(private router:Router) {}
-
-  navergarHome(){
-    this.router.navigate(['/home']);
-  }
-}
-```
-```html
-<div>
-      <button (click)="navergarHome()" type="button">Navegar Home</button>
-</div>
-```
-La propiedad `navigate` recibirá un arreglo igual al mandado en el `RouterLink`.
-Para la navegación enviando parametros se aplicaría la misma lógica, es decir puede ser desde el HTML con `[routerLink]="[ruta,parametros]"`
-```html
-<div class="card-columns">
-  <div class="card animated fadeIn fast" *ngFor="let heroe of heroes; let i = index">
-    <img [src]="heroe.img" class="card-img-top" [alt]="heroe.nombre">
-    <div class="card-body">
-      <h5 class="card-title">{{heroe.nombre}}</h5>
-      <p class="card-text">{{ heroe.bio }}</p>
-      <p class="card-text"><small class="text-muted">{{ heroe.aparicion }}</small></p>
-      <a [routerLink]="['/heroe',i]" class="btn btn-outline-primary btn-block">Ver más link...</a>
-      <button (click)="verHeroe(i)" type="button" class="btn btn-outline-primary btn-block">Ver más desde TS...</button>
-
-    </div>
-  </div>
-</div>
-```
-O por el otro lado desde el TS con el evento click más la función `(click)="verHeroe(i)"`
-
-```ts
-import { Component, OnInit } from '@angular/core';
-import { HeroesService, Heroe } from "../../service/heroes.service";
-import { Router } from "@angular/router";
-
-@Component({
-  selector: 'app-heroes',
-  templateUrl: './heroes.component.html',
-  styles: [
-  ]
-})
-export class HeroesComponent implements OnInit {
-  public heroes: Heroe[] = [];
-  constructor(private _heroesService:HeroesService, 
-    private router:Router) {}
-
-  ngOnInit(): void {
-    this.heroes = this._heroesService.getHeroes();    
-  }
-
-  verHeroe(idx:number){
-    this.router.navigate(['/home']);
+export class AppComponent implements AfterViewInit {
+  @ViewChildren(SystemMessageComponent) query: QueryList<SystemMessageComponent>;
+  
+  ngAfterViewInit () {
+    this.query.changes.subscribe((items: Array<SystemMessageComponent>) => {
+      messages.forEach((item: SystemMessageComponent) => console.log(item.message));
+    });
   }
 }
 ```
 
-Para toda navegación es importante colocar el `/` en la ruta a fin de movernos a la raíz debido a que podemos conseguir errores dentro del `router-outlet` del tipo que concatenan parametros entre rutas, por ejemplo si estamos en una subpágina `http://miruta/heroes` y damos click al hipervinculo
-```html
-<a [routerLink]="['heroe',i]" class="btn btn-outline-primary">Ver más...</a>
-```
-La ruta final que se obtendra sera del tipo `http://miruta/heroes/heroe/1` ya que no nos redirgimos a la ráiz, por ello el la ruta correcta a enviar sería `[routerLink]="['/heroe',i]"`
-
-#### ActivatedRoute
-En muchas ocasiones tendremos que utilizar/recuperar los parámetros enviados mediante el sistema de rutas, para recibir los valores de los parámetros en el componente al que nos dirige la ruta tenemos que usar un objeto del sistema de routing llamado `ActivatedRoute`. Este objeto nos ofrece diversos detalles sobre la ruta actual, entre ellos los parámetros que contiene. Para usarlo debemos importarlo de su librería `@angular/router` e inyectarlo en el constructor
-```ts
-import { Component } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
-
-@Component({
-  selector: 'app-artista',
-  templateUrl: './artista.component.html',
-  styles: []
-})
-export class ArtistaComponent {
-
-  constructor(private activateRouter:ActivatedRoute) { 
-    this.activateRouter.params.subscribe(newParams =>{
-      console.log(newParams['id']);      
-    })
-   }
-}
-```
-En este ejemplo al objeto de tipo `AtivatedRoute` usa una propiedad llamada `params` que es un observable el cuál a través del método `suscribe()` nos permitirá estar atento a los cambios en los parámetros enviados al componente. Podemos usar los [Operadores RxJS.](#operadores-rxjs)
-
-Para obtener los parametros del las rutas padres al momento de usar [rutas anidadas o rutas hijas](#rutas-anidadas), basta con estar dentro del componente hijo y usar la misma sintaxis anteriormente usada pero agregando la propiedad `parent` quedando de la siguiente manera.
-```ts
-this.activatedRoute.parent.params.subscribe(data =>{
-  console.log(data)
-}
-```
-
-#### Rutas Anidadas 
-Las rutas anidadas o rutas hijas son rutas que por cuestiones de usabilidad anidamos a las navegaciones a fin de no perder/recargar la información obtenida por la ruta padre. Por ejemplo, en una subpágina de `usuarios` deseamos mostrar multiple información del mismo, para ello debemos dirigirnos a nuestro archivo de rutas y en el `path` del usuario agregamos la propiedad `children` el cual es un arreglo de rutas
-```ts
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { UsuarioDetalleComponent } from './components/usuario/usuario-detalle.component';
-import { UsuarioEditarComponent } from './components/usuario/usuario-editar.component';
-import { UsuarioNuevoComponent } from './components/usuario/usuario-nuevo.component';
-import { UsuarioComponent } from './components/usuario/usuario.component';
-
-
-const ROUTES: Routes = [
-    { path: 'home', component: HomeComponent },
-    {
-        path: 'usuario/:id', component: UsuarioComponent, children: [
-            { path: 'nuevo', component: UsuarioNuevoComponent },
-            { path: 'detalle', component: UsuarioDetalleComponent },
-            { path: 'editar', component: UsuarioEditarComponent }
-        ]
-    },
-    { path: '**', pathMatch: 'full', redirectTo: 'home' }
-];
-
-@NgModule({
-    imports: [RouterModule.forRoot(ROUTES)],
-    exports: [RouterModule]
-})
-export class AppRoutingModule { }
-```
-Para renderizar las rutas hijas debemos agregar la etiqueta `router-outlet` en el HTML del componente padre
-```html
-<router-outlet></router-outlet>
-```
-En caso de desear renderizar una ruta hija por default basta con colocar el `path '**'` a nuestras rutas hijas
-```ts
-const ROUTES: Routes = [
-    { path: 'home', component: HomeComponent },
-    {
-        path: 'usuario/:id', component: UsuarioComponent, children: [
-            { path: 'nuevo', component: UsuarioNuevoComponent },
-            { path: 'detalle', component: UsuarioDetalleComponent },
-            { path: 'editar', component: UsuarioEditarComponent },
-            { path: '**', pathMatch: 'full', redirectTo: 'nuevo' }
-        ]
-    },
-    { path: '**', pathMatch: 'full', redirectTo: 'home' }
-];
-```
-Cuando existen una gran cantidad de rutas hijas es más practico crear un archivo personalizado de solo las rutas y luego exportarla en nuestro `app.route.ts`
-```ts
-import { Routes } from '@angular/router';
-import { UsuarioDetalleComponent } from './usuario-detalle.component';
-import { UsuarioEditarComponent } from './usuario-editar.component';
-import { UsuarioNuevoComponent } from './usuario-nuevo.component';
-
-export const USUARIO_ROUTES: Routes = [
-    { path: 'nuevo', component: UsuarioNuevoComponent },
-    { path: 'detalle', component: UsuarioDetalleComponent },
-    { path: 'editar', component: UsuarioEditarComponent },
-    { path: '**', pathMatch: 'full', redirectTo: 'nuevo' }    
-];
-```
-Dando como resultado un path del tipo
-```ts
-{ path: 'usuario/:id', component: UsuarioComponent, children: USUARIO_ROUTES},
-```
-En caso de desear obtener los parametros enviados por el padre dentro de una ruta hija debemos hacer uso del [ActivatedRoute](#activatedroute) 
-
-## RxJS
-La RxJS *(Reactive Extensions)* es una librería muy útil de Javascript, que te ayuda a gestionar flujos de datos asíncronos *(Programación Reactiva)*.
-Como norma general, se usa el RxJS para todo código que tiene que gestionar más de un evento o requiere encadenar varias operaciones asíncronas. También es útil cuando se necesita gestionar de forma individual el éxito o error en la ejecución de varias operaciones asíncronas.
-Los operadores de RxJs son funciones que pueden ser encadenadas en lo que llamamos la cadena o pipeline de operadores y que se sitúan entre medias del Observable y el Observer con el objetivo de filtrar, transformar o combinar los valores del Observable/Observables. 
-
-
-#### Partes del RxJS
-Se compone basicamente de los siguientes elementos:
-*   **`Observable`:** El flujo de datos, una colección de eventos que se pueden emitir en algún momento.
-*   **`Observer`:** Un objeto que escucha el flujo de datos y puede actuar sobre los valores que éste emite. En el patrón Observer, el Subject dispone de una API con 3 métodos principales:
-    *  **[Suscribe](#suscribe)**: para que los Observers se suscriban
-    *  **`Unsubscribe`**: para que los Observers cancelen la suscripción
-    *  **`Notify`**: lo llama internamente cuando detecta cambios en su estado.
-*   **`Subscription`:** Representa la ejecución de un observable y permite cancelarla.
-*   **`Operador`:** Función para manipular los eventos siguiendo los principios de la programación funcional.
-*   **`Subject`**: Similar al `Subject` del patrón Observer. En RxJS sirven para distribuir un Observable hacia varios Observers simultáneamente.
-*   **`Schedulers`**: Los schedulers sirven para controlar el orden de las suscripciones y el orden y velocidad de emisión de eventos.
-
-> Fuente de la información [acá](http://blog.enriqueoriol.com/2019/04/aprende-rxjs-3.html) y [acá](https://pablomagaz.com/blog/como-funcionan-operadores-rxjs)
-
-#### Patrón Iterador
-En este caso, se utiliza un objeto (el Iterador), como mecanismo para atravesar una colección de elementos (o contenedor) de forma secuencial, para acceder a su contenido.
-La gracia del Patrón Iterador, es que te permite iterar la colección sin necesidad de conocer la estructura del contenedor, gracias a una API bien definida.
-
-##### hasNext() & next()
-La API de un Iterador, expone típicamente 2 métodos:
-
-* **hasNext()** para saber si todavía quedan elementos en la colección (Booleano)
-* **next()** para acceder al siguiente elemento de la colección
-
-
-Por tanto te da igual como esté implementada la lista que contiene los datos, lo único que necesitas es saber que implementa el patrón iterador y que por tanto puedes usar estos dos métodos, 
-```ts
-let myArray = new IterableList ( 1, 2, 3, 4, 5 );
-let iterator = myArray.iterator();
-
-while( iterator.hasNext( ) ){
-    console.log( iterator.next( ) );
-}
-//output: 1 2 3 4 5
-```
-
-
-#### Operadores RxJS
-Un Operador es una función que crea un nuevo Observable basado en el Observable actual. Esta es una operación pura: el Observable anterior permanece sin modificar.
-Esencialmente, un Operador es como una máquina que toma un Observable como entrada, realiza alguna lógica en los valores transmitidos a través del Observable y crea un nuevo Observable con estos valores, sin cambiar el Observable original.
-<img src="img/OperatorExplanation.png" width="auto;"/>
-
-
-##### of()
-El Operador `of` es un Operador de creación. Los operadores de creación son funciones que crean un flujo observable a partir de una fuente.
-
-El Operador `of` creará un Observable que emite una cantidad variable de valores en secuencia, seguido de una notificación de Finalización.
-```ts
-import { of } from 'rxjs';
-
-const arr = [1, 2, 3];
-const arr$ = of(arr);
-arr$.subscribe((values) => console.log(`Emitted Values: `, values));
-// Response: 
-// Emitted Values: [1, 2, 3]
-```
-En este ejemplo al subscribirnos emitirá una única respuesta con el array completo, ya que el operador los toma como una única colección de datos, en caso de desear pasarlos por separados usando este operador debemos pasar los elementos dentro del `of` separados por comas
-```ts
-import { of } from 'rxjs';
-
-const arr$ = of(1, 2, 3);
-arr$.subscribe((values) => console.log(`Emitted Values: `, values));
-// Response: 
-// Emitted Values: 1
-// Emitted Values: 2
-// Emitted Values: 3
-```
-Si nos basamos en el primer ejemplo vemos  que `of` emitirá la matriz completa como un único valor. Esto contrasta con el operador `from`
-
-##### from()
-El Operador `from` convierte un Array, Promise o Iterable en un Observable.
-
-Este operador convertirá una Promesa en un Observable, lo que permitirá que se maneje de una manera más reactiva. Cuando la Promesa se resuelva o rechace, se enviará una notificación de finalización a todos los suscriptores.
-
-Además, a diferencia `of`, emitirá cada elemento en un Array o Iterable en secuencia, en lugar del valor completo. Una vez que se han emitido todos los elementos del Array o Iterable, se envía una notificación de finalización a los suscriptores.
-
-```ts
-import { from } from 'rxjs'; 
-
-const arr = [1, 2, 3];
-const arr$ = from(arr);
-arr$.subscribe((values) => console.log(`Emitted Values: `, values));
-// Response: 
-// Emitted Values: 1
-// Emitted Values: 2
-// Emitted Values: 3
-```
-Como podemos el operador `form` tomó cada número y lo emitió como un valor. El suscriptor recibió cada valor en secuencia y llamó `console.log` tres veces.
-
-También podemos usar un valor como una cadena:
-```ts
-import { from } from 'rxjs'; 
-
-const fromString$ = from("Hello");
-fromString$.subscribe((value) => console.log(`Emitted Values: `, value));
-// Response: 
-// Emitted Values: H
-// Emitted Values: e
-// Emitted Values: l
-// Emitted Values: l
-// Emitted Values: o
-```
-
-También podemos hacerlos con promesas, cuando la misma se resuelva el operador `form` podra ejecutarse
-```ts
-import { from } from 'rxjs'; 
-const examplePromise = new Promise((resolve, reject) => {
-  // Do some async code and resolve and object with an id property
-  return resolve({ id: 1 });
-});
-
-const promise$ = from(examplePromise);
-promise$.subscribe((value) => console.log(`Emitted Values: `, value));
-```
-
-
-##### Pipe()
-El método `pipe()` permitirá ejecutar uno o varios operadores simultaneamente según tengamos la necesidad combinandolos y arrojando 1 solo resultado.
-```ts
-import { of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-
-const obs = of({name: 'John Wayne', age: 72})
-const mapped = obs.pipe(
-                  filter(n => n.name== 'John Wayne'),
-                  map(v => v.name));
-
-mapped.subscribe(name => console.log (name));
-```
-Como se aprecia el método `pipe()` recibe un array de operadores, de modo que cada operador va modificando el flujo de datos.
-
-##### Map()
-El operador `Map` es llamado operador de transformación ya que nos permitirá manipular los datos recibidos y retornar un nuevo tipo de información más pulidad y precisa para la funcionalidad que estemos desarrollando sin tener que trabajar con el objeto entero.
-```ts
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-const obs = of({name: 'John Wayne', age: 72})
-const mapped = obs.pipe(
-                  map(v => v.name));
-
-mapped.subscribe(name => console.log (name));
-```
-En este ejemplo el flujo de evento de la constante `obs` incluye un objeto con nombre y edad, como queremos obtener solo el nombre usamos el operador `map()`para retornar el dato a usar.
-En caso que la petición a usar retorne algún tipo de error (un buen ejemplo al usar una petición de tipo `http`), provocará que el map no sea ejecutado.
-
-
-#### Suscribe()
-El método `suscribe()` es un método del tipo Observable el cual se ejecuta cuando se produce un evento indicado en el atributo subscrito. El tipo Observable es una utilidad que transmite datos de forma asíncrona o sincrónica a una variedad de componentes o servicios que se han suscrito al observable.  Su interfaz define 3 métodos (1 obligatorio y 2 opcionales):
-*   **`next`:** *(Required)*. Método callback que recibe y usa los datos
-*   **`error`:** *(Opcional)*. Método callback que escucha el flujo de datos y puede actuar sobre los valores que éste emite en caso de errores.
-*   **`complete`:** *(Opcional)*. Método callback para la notificación de la ejecución completa.
-```ts
-myObservable.subscribe(
-  x => console.log('Observer got a next value: ' + x),
-  err => console.error('Observer got an error: ' + err),
-  () => console.log('Observer got a complete notification')
-);
-```
-
-#### Subjects
-Los Subjects son Observables que además pueden manejar múltiples suscripciones a un único flujo y son capaces de emitir eventos.
-
-Como los eventos solo los quieres generar a nivel interno, lo que debes hacer es crear un Subject privado, y exponer un Observable público con el flujo del primero.
-#### Operadores RxJs vs Función de Orden Superior
-
-Las funciones que operan en otras funciones, ya sea tomándolas como argumentos o retornandolas, se denominan `funciones de orden superior`, un buen ejemplo sería crear una función que permita sumar 2 números y retorne el resultado.
-Si bien es buena idea ver los operadores de RxJs como algo parecido a las funciones de orden superior los operadores de RxJs trabajan de forma un poco diferente. La principal diferencia es que los Observables no generan estructuras de datos intermedias como si hacen las funciones de orden superior como `map` o `filter`
-```ts
-const data = [0,1,2,3];
-
-const result = data
-.filter(x => {
-  console.log(`filter: ${x}`);
-  return x % 2 === 0;
-})
-.map(x => {
-  console.log(`map: ${x}`);
-  return x * x;
-})  
-// OUTPUT >> filter: 0, filter: 1, filter: 2, filter: 3, map: 0, map: 2
-```
-Cada una de estas funciones siempre devuelve un nuevo Array, sin realizar mutaciones en el Array original y como vemos en la salida hasta que filter no devuelve un nuevo Array, éste, no pasa a la siguiente función que es map. En estructuras largas de datos, esto, tendrá un coste elevado por la duplicidad temporal de los datos. La misma operación en RxJs tiene un aspecto casi idéntico, pero funciona de forma diferente.
-```ts
-const data = [0,1,2,3];
-const source$ = Rx.Observable.from(data);
-
-source$
-.filter(x => {
-  console.log(`filter: ${x}`);
-  return x % 2 === 0;
-})
-.map(x => {
-  console.log(`map: ${x}`);
-  return x * x;
-})
-.subscribe(); 
-// OUTPUT >> filter: 0, map: 0, filter: 1, filter: 2, map: 2, filter: 3
-```
-Técnicamente, un operador, o al menos la gran mayoría de ellos, siempre devuelven un Observable, de tal forma que realmente cada operador actúa como subscriptor del Observable, usando para ello la API `next, complete y error` del Observer. En la salida podemos ver como cada uno de los valores emitidos va pasando por los distintos operadores sin formar estructuras de datos intermedias, lo que es mucho más rápido y eficiente.
-
-## Storage
-El objeto Storage (API de almacenamiento web) nos permite almacenar datos de manera local en el navegador y sin necesidad de realizar alguna conexión y/o consultas a una base de datos. 
-
-#### Local Storage
-Es una propiedades que accede al objeto Storage y tienen la función de almacenar datos de manera local, dicha información se almecena de forma indefinida o hasta que se decida limpiar los datos del navegador. Se almacenan de la manera llave-valor
-```ts
-// set a value
-localStorage.setItem('Nombre', 'Miguel Antonio')
-localStorage.Apellido = 'Márquez Montoya'
-
-// get a value
-localStorage.getItem('Nombre'),
-localStorage.Apellido
-
-// remove a single item
-localStorage.removeItem('Nombre');
-localStorage.removeItem(Apellido);
-
-// clear the whole localStorage
-localStorage.clear();
-```
-
-#### Session Storage
-Es una propiedades que accede al objeto Storage y tienen la función de almacenar datos de manera local, dicha propiedad almacena la información mientras la pestaña donde se esté utilizando siga abierta, una vez cerrada, la información se elimina. Se almacenan de la manera llave-valor
-
-```ts
-// set a value
-sessionStorage.setItem('Nombre', 'Miguel Antonio')
-sessionStorage.Apellido = 'Márquez Montoya'
-
-// get a value
-sessionStorage.getItem('Nombre'),
-sessionStorage.Apellido
-
-// remove a single item
-sessionStorage.removeItem('Nombre');
-sessionStorage.removeItem(Apellido);
-
-// clear the whole sessionStorage
-sessionStorage.clear();
-```
 
 ## Template Forms
 Los formularios basados en plantillas como su propio nombre lo indica poseen la mayor parte de su lógica en el `HTML`, estos formularios se basan en directivas como `NgModel` y `NgModelGroup` la cuál crea un `FormGroup` y lo vincula a un formulario para realizar un seguimiento del valor agregado del formulario y el estado de validación.
@@ -2690,6 +2043,763 @@ existeUsuario(control:FormControl): Promise<any> | Observable<any> {
   });
 }
 ```
+
+
+
+## Navegación en Angular
+La navegación en angular se basa en disminuir en lo posible la cantidad de data a intercambiar entre el **browser** y el **servidor**, para ello que hace es cargar una sola página (generalmente **index.html**) y después, todas las otras páginas/componentes se refrescan usando **Javascript**; pero sólo **index.html** es una página completa, el resto de las páginas son sólo porciones de HTML que su código Javascript va cambiando **dinámicamente**.
+
+#### Routes File
+Para el manejo de la navegación de las rutas creamos un archivo de nombre `app.routes.ts` dentro de la carpeta `app`, dicho archivo estará compuesto por una constante de tipo `Routes` que poseerá todos las rutas a navegar
+```ts
+import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { HeroesComponent } from './components/heroes/heroes.component';
+
+const ROUTES: Routes = [
+    { path: 'home', component: HomeComponent },
+    { path: '**', pathMatch:'full', redirectTo: 'home'}
+];
+
+@NgModule({
+    imports: [RouterModule.forRoot(ROUTES)],
+    exports: [RouterModule]
+})
+export class AppRoutesModule {}
+```
+>    Utilizaremos el path `{ path: '**', pathMatch:'full', redirectTo: 'home'}`, para generar una ruta por defecto en caso que la ruta colocada no exista, el mismo siempre se debe colocar al final de todas las rutas.
+
+Este módulo debe ser importado en el archivo base `app.modules.ts`
+```ts
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppRoutesModule  } from "./app.routes";
+
+@NgModule({
+  declarations: [],
+  imports: [
+    BrowserModule,
+    AppRoutesModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+Para poder renderizar la web indicada por la ruta debemos agregar la etiqueta `router-outlet`donde deseemos que se valla a renderizar las rutas, en este caso lo haríamos en `app.component.html`
+```html
+<app-navbar></app-navbar>
+<router-outlet></router-outlet>
+```
+Otro método para generar las rutas es generar el código directamente desde desde el archivo `app.module.ts`, es decir en nuestro archivo de rutas tendríamos algo como
+```ts
+import { Routes } from '@angular/router';
+import { HomeComponent } from './components/home/home.component';
+export const ROUTES: Routes = [
+    { path: 'home', component: ArtistaComponent },
+    { path: '', component: HomeComponent },
+    { path: '**', component: HomeComponent }
+];
+```
+Mientras que en nuestro `app.module.ts` importariamos la librería `RouterModule` de angular y el archivo `app.route.ts` que creamos.
+```ts
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { RouterModule } from "@angular/router";
+
+import { AppComponent } from './app.component';
+import { HomeComponent } from './components/home/home.
+import { ROUTES } from "./app.routes";
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HomeComponent
+  ],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(ROUTES, {useHash:true})
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+> El `{ useHash: true }`, permitirá que la ruta del proyecto a mostrar incluya un `#` dando como resultado `http://localhost:4200/#/home`
+
+#### RouterModule.forRoot vs RouterModule.forChild
+Al momento de inyectar las configuraciones en nuestro archivo de rutas nos toparemos con 2 métodos a importar, el `forRoot()` y `forChild()`
+Utilizaremos el método `forRoot()` cuando estemos úbicados en el módulo principal de la APP por lo general llamado `AppRoutingModule`, este módulo contiene  todas las directivas, las rutas, y el propio servicio del router, en pocas palabras es el primer módulo que se carga cuando se ejecuta la aplicación por primera vez 
+```ts
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  { path: '', component: HomeComponent }
+];
+
+@NgModule({
+  //Sección a usar forRoot() o forChild()
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {}
+```
+Utilizaremos `forChild()` al momento de crea módulos hijos con sus propios archivos de rutas, este tipo de modalidad de trabajo es de suma importancia cuando tenemos aplicaciones muy grande ya que permite la carga bajo demanda o [Lazy Loading](#lazy-loading)
+> **NOTA:** Los siguientes archivos de `AmericaRoutingModule` y `EuropaRoutingModule` serán referenciados en la sección de [Lazy Loading](#lazy-loading)
+```ts
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { EspanaComponent } from './espana/espana.component';
+import { FranciaComponent } from './francia/francia.component';
+import { ItaliaComponent } from './italia/italia.component';
+
+
+const routes: Routes = [
+  {
+    path: 'espana',
+    component: EspanaComponent
+  },
+  {
+    path: 'francia',
+    component: FranciaComponent
+  },
+  {
+    path: 'italia',
+    component: ItaliaComponent
+  } 
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class EuropaRoutingModule { }
+```
+```ts
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { ChileComponent } from './chile/chile.component';
+import { ArgentinaComponent } from './argentina/argentina.component';
+import { UruguayComponent } from './uruguay/uruguay.component';
+
+const routes: Routes = [
+  {
+    path: 'chile',
+    component: ChileComponent
+  },
+  {
+    path: 'argentina',
+    component: ArgentinaComponent
+  },
+  {
+    path: 'uruguay',
+    component: UruguayComponent
+  }  
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class AmericaRoutingModule { }
+```
+
+#### Lazy Loading
+El Lazy Loading o carga perezosa nos permite organizar una aplicación Angular a fin que la misma no cargue en forma completa toda la aplicación web en una única llamada al servidor, sino que retrace la carga hasta el momento de su utilización (carga bajo demanda).
+Esta forma de particionar una aplicación y su carga por partes es de suma importancia cuando tenemos aplicaciones muy grandes y tiene como beneficio que el usuario no tenga que esperar mucho tiempo en la carga inicial de la aplicación. Como desventaja podríamos decir que cuando el usuario accede a otras secciones de la aplicación también tenga que esperar que se recuperen del servidor.
+Para simular un Lazy Loading, continuaremos con los archivos routing usados en [RouterModule.forRoot vs RouterModule.forChild](#routermoduleforroot-vs-routermoduleforchild). Acá tendremos 2 módulos (`AmericaModule` & `EuropaModule`) que alojaran sus clases especificas y donde cada módulo administrará las rutas hijas anterioremente creadas
+```ts
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@NgModule({
+  declarations: [],
+  imports: [
+    CommonModule,
+    AmericaRoutingModule
+  ]
+})
+export class AmericaModule { }
+```
+```ts
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@NgModule({
+  declarations: [],
+  imports: [
+    CommonModule,
+    EuropaRoutingModule
+  ]
+})
+export class EuropaModule { }
+```
+> Es importan recordar importar estas rutas hijas
+
+Después de crear nuestro módulos hijos procedemos a codificar las rutas del módulo principal de nuestra aplicación, para ello abrimos el archivo `app-routing.module.ts` y especificamos la sintaxis para hacer la carga de los otros módulos con Lazy Loading:
+
+```ts
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { AmericaComponent } from './america/america.component';
+import { EuropaComponent } from './europa/europa.component';
+
+const routes: Routes = [
+  {
+    path: 'america',
+    component: AmericaComponent,
+    loadChildren: () => import('./america/america.module').then(m => m.AmericaModule)
+  },
+  {
+    path: 'europa',
+    component: EuropaComponent,
+    loadChildren: () => import('./europa/europa.module').then(m => m.EuropaModule)
+  }
+]
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+```
+Podemos ver que la sintaxis para la carga diferida usa la propiedad `loadChildren` seguida de la función `import` para las importaciones dinámicas del módulo indicado en el parámetro. La ruta de importación es la ruta relativa al módulo:
+```ts
+loadChildren: () => import('./america/america.module').then(m => m.AmericaModule)
+```
+
+#### RouterLink y RouterLinkActive
+El `RouterLink` es una directiva que permite la navegación entre las distintas rutas de nuestra app, la misma se colocará en nuestro archivo HTML de la siguiente manera
+```html
+<ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="['home']">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" routerLink="heroes">Heroes</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="['about']">About</a>
+    </li>
+</ul>
+```
+El router link se puede escribir con o sin corchetes, la diferencia principal entre ambos es que sin corchetes estaríamos pasando una cadena de caracteres, es decir un valor no modificable, mientras que con corchete se puede pasar tanto una propiedad como diversos parametros en caso de ser necesario
+```html
+<ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="routerLinkVariable">Home</a>
+    </li>
+    <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="[routerLinkVariable,routerLinkDynamicParameter]">Home2</a>
+    </li>
+</ul>
+```
+```ts
+export class NavbarComponent  {
+  public routerLinkVariable= "/home";
+  public routerLinkDynamicParameter= 123;
+
+  updateRouterLinkVariable(){
+    this.routerLinkVariable="/about";
+  }
+}
+```
+En el caso del `home2` la ruta que estaríamos pasando al hacer click sería del tipo `http://miruta/home/123`. 
+
+
+El `RouterLinkActive` es una propiedad que va a permitir colocar la(s) clase(s) que se estipulen dentro del elemento siempre que exista un elemento hijo de tipo `RouterLink` al cual se le de click
+```html
+<ul class="navbar-nav mr-auto">
+    <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/home']">Home</a>
+    </li>
+    <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/heroes']">Heroes</a>
+    </li>
+    <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/about']">About</a>
+    </li>
+</ul>
+```
+En este caso al dar click a `home` el `routerLinkActive` agregará la clase `active` a la etiqueta `<li>` donde se encuentra.
+
+#### Router
+Las navegación entre las rutas pueden venir dadas a través del html con el `RouterLink` anteriormente mencionado o desde el TS importando la librería `Router` de angular
+
+```ts
+import { Component } from '@angular/core';
+import { Router } from "@angular/router";
+
+@Component({
+  selector: 'app-heroes',
+  templateUrl: './heroes.component.html'
+})
+export class HeroesComponent {
+  constructor(private router:Router) {}
+
+  navergarHome(){
+    this.router.navigate(['/home']);
+  }
+}
+```
+```html
+<div>
+      <button (click)="navergarHome()" type="button">Navegar Home</button>
+</div>
+```
+La propiedad `navigate` recibirá un arreglo igual al mandado en el `RouterLink`.
+Para la navegación enviando parametros se aplicaría la misma lógica, es decir puede ser desde el HTML con `[routerLink]="[ruta,parametros]"`
+```html
+<div class="card-columns">
+  <div class="card animated fadeIn fast" *ngFor="let heroe of heroes; let i = index">
+    <img [src]="heroe.img" class="card-img-top" [alt]="heroe.nombre">
+    <div class="card-body">
+      <h5 class="card-title">{{heroe.nombre}}</h5>
+      <p class="card-text">{{ heroe.bio }}</p>
+      <p class="card-text"><small class="text-muted">{{ heroe.aparicion }}</small></p>
+      <a [routerLink]="['/heroe',i]" class="btn btn-outline-primary btn-block">Ver más link...</a>
+      <button (click)="verHeroe(i)" type="button" class="btn btn-outline-primary btn-block">Ver más desde TS...</button>
+
+    </div>
+  </div>
+</div>
+```
+O por el otro lado desde el TS con el evento click más la función `(click)="verHeroe(i)"`
+
+```ts
+import { Component, OnInit } from '@angular/core';
+import { HeroesService, Heroe } from "../../service/heroes.service";
+import { Router } from "@angular/router";
+
+@Component({
+  selector: 'app-heroes',
+  templateUrl: './heroes.component.html',
+  styles: [
+  ]
+})
+export class HeroesComponent implements OnInit {
+  public heroes: Heroe[] = [];
+  constructor(private _heroesService:HeroesService, 
+    private router:Router) {}
+
+  ngOnInit(): void {
+    this.heroes = this._heroesService.getHeroes();    
+  }
+
+  verHeroe(idx:number){
+    this.router.navigate(['/home']);
+  }
+}
+```
+
+Para toda navegación es importante colocar el `/` en la ruta a fin de movernos a la raíz debido a que podemos conseguir errores dentro del `router-outlet` del tipo que concatenan parametros entre rutas, por ejemplo si estamos en una subpágina `http://miruta/heroes` y damos click al hipervinculo
+```html
+<a [routerLink]="['heroe',i]" class="btn btn-outline-primary">Ver más...</a>
+```
+La ruta final que se obtendra sera del tipo `http://miruta/heroes/heroe/1` ya que no nos redirgimos a la ráiz, por ello el la ruta correcta a enviar sería `[routerLink]="['/heroe',i]"`
+
+#### ActivatedRoute
+En muchas ocasiones tendremos que utilizar/recuperar los parámetros enviados mediante el sistema de rutas, para recibir los valores de los parámetros en el componente al que nos dirige la ruta tenemos que usar un objeto del sistema de routing llamado `ActivatedRoute`. Este objeto nos ofrece diversos detalles sobre la ruta actual, entre ellos los parámetros que contiene. Para usarlo debemos importarlo de su librería `@angular/router` e inyectarlo en el constructor
+```ts
+import { Component } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+
+@Component({
+  selector: 'app-artista',
+  templateUrl: './artista.component.html',
+  styles: []
+})
+export class ArtistaComponent {
+
+  constructor(private activateRouter:ActivatedRoute) { 
+    this.activateRouter.params.subscribe(newParams =>{
+      console.log(newParams['id']);      
+    })
+   }
+}
+```
+En este ejemplo al objeto de tipo `AtivatedRoute` usa una propiedad llamada `params` que es un observable el cuál a través del método `suscribe()` nos permitirá estar atento a los cambios en los parámetros enviados al componente. Podemos usar los [Operadores RxJS.](#operadores-rxjs)
+
+Para obtener los parametros del las rutas padres al momento de usar [rutas anidadas o rutas hijas](#rutas-anidadas), basta con estar dentro del componente hijo y usar la misma sintaxis anteriormente usada pero agregando la propiedad `parent` quedando de la siguiente manera.
+```ts
+this.activatedRoute.parent.params.subscribe(data =>{
+  console.log(data)
+}
+```
+
+#### Rutas Anidadas 
+Las rutas anidadas o rutas hijas son rutas que por cuestiones de usabilidad anidamos a las navegaciones a fin de no perder/recargar la información obtenida por la ruta padre. Por ejemplo, en una subpágina de `usuarios` deseamos mostrar multiple información del mismo, para ello debemos dirigirnos a nuestro archivo de rutas y en el `path` del usuario agregamos la propiedad `children` el cual es un arreglo de rutas
+```ts
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './components/home/home.component';
+import { UsuarioDetalleComponent } from './components/usuario/usuario-detalle.component';
+import { UsuarioEditarComponent } from './components/usuario/usuario-editar.component';
+import { UsuarioNuevoComponent } from './components/usuario/usuario-nuevo.component';
+import { UsuarioComponent } from './components/usuario/usuario.component';
+
+
+const ROUTES: Routes = [
+    { path: 'home', component: HomeComponent },
+    {
+        path: 'usuario/:id', component: UsuarioComponent, children: [
+            { path: 'nuevo', component: UsuarioNuevoComponent },
+            { path: 'detalle', component: UsuarioDetalleComponent },
+            { path: 'editar', component: UsuarioEditarComponent }
+        ]
+    },
+    { path: '**', pathMatch: 'full', redirectTo: 'home' }
+];
+
+@NgModule({
+    imports: [RouterModule.forRoot(ROUTES)],
+    exports: [RouterModule]
+})
+export class AppRoutingModule { }
+```
+Para renderizar las rutas hijas debemos agregar la etiqueta `router-outlet` en el HTML del componente padre
+```html
+<router-outlet></router-outlet>
+```
+En caso de desear renderizar una ruta hija por default basta con colocar el `path '**'` a nuestras rutas hijas
+```ts
+const ROUTES: Routes = [
+    { path: 'home', component: HomeComponent },
+    {
+        path: 'usuario/:id', component: UsuarioComponent, children: [
+            { path: 'nuevo', component: UsuarioNuevoComponent },
+            { path: 'detalle', component: UsuarioDetalleComponent },
+            { path: 'editar', component: UsuarioEditarComponent },
+            { path: '**', pathMatch: 'full', redirectTo: 'nuevo' }
+        ]
+    },
+    { path: '**', pathMatch: 'full', redirectTo: 'home' }
+];
+```
+Cuando existen una gran cantidad de rutas hijas es más practico crear un archivo personalizado de solo las rutas y luego exportarla en nuestro `app.route.ts`
+```ts
+import { Routes } from '@angular/router';
+import { UsuarioDetalleComponent } from './usuario-detalle.component';
+import { UsuarioEditarComponent } from './usuario-editar.component';
+import { UsuarioNuevoComponent } from './usuario-nuevo.component';
+
+export const USUARIO_ROUTES: Routes = [
+    { path: 'nuevo', component: UsuarioNuevoComponent },
+    { path: 'detalle', component: UsuarioDetalleComponent },
+    { path: 'editar', component: UsuarioEditarComponent },
+    { path: '**', pathMatch: 'full', redirectTo: 'nuevo' }    
+];
+```
+Dando como resultado un path del tipo
+```ts
+{ path: 'usuario/:id', component: UsuarioComponent, children: USUARIO_ROUTES},
+```
+En caso de desear obtener los parametros enviados por el padre dentro de una ruta hija debemos hacer uso del [ActivatedRoute](#activatedroute) 
+
+## RxJS
+La RxJS *(Reactive Extensions)* es una librería muy útil de Javascript, que te ayuda a gestionar flujos de datos asíncronos *(Programación Reactiva)*.
+Como norma general, se usa el RxJS para todo código que tiene que gestionar más de un evento o requiere encadenar varias operaciones asíncronas. También es útil cuando se necesita gestionar de forma individual el éxito o error en la ejecución de varias operaciones asíncronas.
+Los operadores de RxJs son funciones que pueden ser encadenadas en lo que llamamos la cadena o pipeline de operadores y que se sitúan entre medias del Observable y el Observer con el objetivo de filtrar, transformar o combinar los valores del Observable/Observables. 
+
+
+#### Partes del RxJS
+Se compone basicamente de los siguientes elementos:
+*   **`Observable`:** El flujo de datos, una colección de eventos que se pueden emitir en algún momento.
+*   **`Observer`:** Un objeto que escucha el flujo de datos y puede actuar sobre los valores que éste emite. En el patrón Observer, el Subject dispone de una API con 3 métodos principales:
+    *  **[Suscribe](#suscribe)**: para que los Observers se suscriban
+    *  **`Unsubscribe`**: para que los Observers cancelen la suscripción
+    *  **`Notify`**: lo llama internamente cuando detecta cambios en su estado.
+*   **`Subscription`:** Representa la ejecución de un observable y permite cancelarla.
+*   **`Operador`:** Función para manipular los eventos siguiendo los principios de la programación funcional.
+*   **`Subject`**: Similar al `Subject` del patrón Observer. En RxJS sirven para distribuir un Observable hacia varios Observers simultáneamente.
+*   **`Schedulers`**: Los schedulers sirven para controlar el orden de las suscripciones y el orden y velocidad de emisión de eventos.
+
+> Fuente de la información [acá](http://blog.enriqueoriol.com/2019/04/aprende-rxjs-3.html) y [acá](https://pablomagaz.com/blog/como-funcionan-operadores-rxjs)
+
+#### Patrón Iterador
+En este caso, se utiliza un objeto (el Iterador), como mecanismo para atravesar una colección de elementos (o contenedor) de forma secuencial, para acceder a su contenido.
+La gracia del Patrón Iterador, es que te permite iterar la colección sin necesidad de conocer la estructura del contenedor, gracias a una API bien definida.
+
+##### hasNext() & next()
+La API de un Iterador, expone típicamente 2 métodos:
+
+* **hasNext()** para saber si todavía quedan elementos en la colección (Booleano)
+* **next()** para acceder al siguiente elemento de la colección
+
+
+Por tanto te da igual como esté implementada la lista que contiene los datos, lo único que necesitas es saber que implementa el patrón iterador y que por tanto puedes usar estos dos métodos, 
+```ts
+let myArray = new IterableList ( 1, 2, 3, 4, 5 );
+let iterator = myArray.iterator();
+
+while( iterator.hasNext( ) ){
+    console.log( iterator.next( ) );
+}
+//output: 1 2 3 4 5
+```
+
+
+#### Operadores RxJS
+Un Operador es una función que crea un nuevo Observable basado en el Observable actual. Esta es una operación pura: el Observable anterior permanece sin modificar.
+Esencialmente, un Operador es como una máquina que toma un Observable como entrada, realiza alguna lógica en los valores transmitidos a través del Observable y crea un nuevo Observable con estos valores, sin cambiar el Observable original.
+<img src="img/OperatorExplanation.png" width="auto;"/>
+
+
+##### of()
+El Operador `of` es un Operador de creación. Los operadores de creación son funciones que crean un flujo observable a partir de una fuente.
+
+El Operador `of` creará un Observable que emite una cantidad variable de valores en secuencia, seguido de una notificación de Finalización.
+```ts
+import { of } from 'rxjs';
+
+const arr = [1, 2, 3];
+const arr$ = of(arr);
+arr$.subscribe((values) => console.log(`Emitted Values: `, values));
+// Response: 
+// Emitted Values: [1, 2, 3]
+```
+En este ejemplo al subscribirnos emitirá una única respuesta con el array completo, ya que el operador los toma como una única colección de datos, en caso de desear pasarlos por separados usando este operador debemos pasar los elementos dentro del `of` separados por comas
+```ts
+import { of } from 'rxjs';
+
+const arr$ = of(1, 2, 3);
+arr$.subscribe((values) => console.log(`Emitted Values: `, values));
+// Response: 
+// Emitted Values: 1
+// Emitted Values: 2
+// Emitted Values: 3
+```
+Si nos basamos en el primer ejemplo vemos  que `of` emitirá la matriz completa como un único valor. Esto contrasta con el operador `from`
+
+##### from()
+El Operador `from` convierte un Array, Promise o Iterable en un Observable.
+
+Este operador convertirá una Promesa en un Observable, lo que permitirá que se maneje de una manera más reactiva. Cuando la Promesa se resuelva o rechace, se enviará una notificación de finalización a todos los suscriptores.
+
+Además, a diferencia `of`, emitirá cada elemento en un Array o Iterable en secuencia, en lugar del valor completo. Una vez que se han emitido todos los elementos del Array o Iterable, se envía una notificación de finalización a los suscriptores.
+
+```ts
+import { from } from 'rxjs'; 
+
+const arr = [1, 2, 3];
+const arr$ = from(arr);
+arr$.subscribe((values) => console.log(`Emitted Values: `, values));
+// Response: 
+// Emitted Values: 1
+// Emitted Values: 2
+// Emitted Values: 3
+```
+Como podemos el operador `form` tomó cada número y lo emitió como un valor. El suscriptor recibió cada valor en secuencia y llamó `console.log` tres veces.
+
+También podemos usar un valor como una cadena:
+```ts
+import { from } from 'rxjs'; 
+
+const fromString$ = from("Hello");
+fromString$.subscribe((value) => console.log(`Emitted Values: `, value));
+// Response: 
+// Emitted Values: H
+// Emitted Values: e
+// Emitted Values: l
+// Emitted Values: l
+// Emitted Values: o
+```
+
+También podemos hacerlos con promesas, cuando la misma se resuelva el operador `form` podra ejecutarse
+```ts
+import { from } from 'rxjs'; 
+const examplePromise = new Promise((resolve, reject) => {
+  // Do some async code and resolve and object with an id property
+  return resolve({ id: 1 });
+});
+
+const promise$ = from(examplePromise);
+promise$.subscribe((value) => console.log(`Emitted Values: `, value));
+```
+
+
+##### Pipe()
+El método `pipe()` permitirá ejecutar uno o varios operadores simultaneamente según tengamos la necesidad combinandolos y arrojando 1 solo resultado.
+```ts
+import { of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+
+const obs = of({name: 'John Wayne', age: 72})
+const mapped = obs.pipe(
+                  filter(n => n.name== 'John Wayne'),
+                  map(v => v.name));
+
+mapped.subscribe(name => console.log (name));
+```
+Como se aprecia el método `pipe()` recibe un array de operadores, de modo que cada operador va modificando el flujo de datos.
+
+##### Map()
+El operador `Map` es llamado operador de transformación ya que nos permitirá manipular los datos recibidos y retornar un nuevo tipo de información más pulidad y precisa para la funcionalidad que estemos desarrollando sin tener que trabajar con el objeto entero.
+```ts
+import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+const obs = of({name: 'John Wayne', age: 72})
+const mapped = obs.pipe(
+                  map(v => v.name));
+
+mapped.subscribe(name => console.log (name));
+```
+En este ejemplo el flujo de evento de la constante `obs` incluye un objeto con nombre y edad, como queremos obtener solo el nombre usamos el operador `map()`para retornar el dato a usar.
+En caso que la petición a usar retorne algún tipo de error (un buen ejemplo al usar una petición de tipo `http`), provocará que el map no sea ejecutado.
+
+##### debounceTime()
+El operador `debounceTime` emite una notificación solo después de que haya transcurrido un período de tiempo particular sin que otra fuente emita.
+```ts
+import { fromEvent, debounceTime } from 'rxjs';
+
+const clicks = fromEvent(document, 'click');
+const result = clicks.pipe(debounceTime(1000));
+result.subscribe(x => console.log(x));
+```
+En este ejemplo el console log se ejecutará despues de haber pasado 1000ms (1 seg)
+
+<img class="image" src="img/debounceTime.gif" alt="Simple debounce en JavaScript" loading="lazy">
+
+
+#### Suscribe()
+El método `suscribe()` es un método del tipo Observable el cual se ejecuta cuando se produce un evento indicado en el atributo subscrito. El tipo Observable es una utilidad que transmite datos de forma asíncrona o sincrónica a una variedad de componentes o servicios que se han suscrito al observable.  Su interfaz define 3 métodos (1 obligatorio y 2 opcionales):
+*   **`next`:** *(Required)*. Método callback que recibe y usa los datos
+*   **`error`:** *(Opcional)*. Método callback que escucha el flujo de datos y puede actuar sobre los valores que éste emite en caso de errores.
+*   **`complete`:** *(Opcional)*. Método callback para la notificación de la ejecución completa.
+```ts
+myObservable.subscribe(
+  x => console.log('Observer got a next value: ' + x),
+  err => console.error('Observer got an error: ' + err),
+  () => console.log('Observer got a complete notification')
+);
+```
+
+#### Subjects
+Los Subjects son Observables que además pueden manejar múltiples suscripciones a un único flujo y son capaces de emitir eventos.
+
+Como los eventos solo los quieres generar a nivel interno, lo que debes hacer es crear un Subject privado, y exponer un Observable público con el flujo del primero.
+#### Operadores RxJs vs Función de Orden Superior
+
+Las funciones que operan en otras funciones, ya sea tomándolas como argumentos o retornandolas, se denominan `funciones de orden superior`, un buen ejemplo sería crear una función que permita sumar 2 números y retorne el resultado.
+Si bien es buena idea ver los operadores de RxJs como algo parecido a las funciones de orden superior los operadores de RxJs trabajan de forma un poco diferente. La principal diferencia es que los Observables no generan estructuras de datos intermedias como si hacen las funciones de orden superior como `map` o `filter`
+```ts
+const data = [0,1,2,3];
+
+const result = data
+.filter(x => {
+  console.log(`filter: ${x}`);
+  return x % 2 === 0;
+})
+.map(x => {
+  console.log(`map: ${x}`);
+  return x * x;
+})  
+// OUTPUT >> filter: 0, filter: 1, filter: 2, filter: 3, map: 0, map: 2
+```
+Cada una de estas funciones siempre devuelve un nuevo Array, sin realizar mutaciones en el Array original y como vemos en la salida hasta que filter no devuelve un nuevo Array, éste, no pasa a la siguiente función que es map. En estructuras largas de datos, esto, tendrá un coste elevado por la duplicidad temporal de los datos. La misma operación en RxJs tiene un aspecto casi idéntico, pero funciona de forma diferente.
+```ts
+const data = [0,1,2,3];
+const source$ = Rx.Observable.from(data);
+
+source$
+.filter(x => {
+  console.log(`filter: ${x}`);
+  return x % 2 === 0;
+})
+.map(x => {
+  console.log(`map: ${x}`);
+  return x * x;
+})
+.subscribe(); 
+// OUTPUT >> filter: 0, map: 0, filter: 1, filter: 2, map: 2, filter: 3
+```
+Técnicamente, un operador, o al menos la gran mayoría de ellos, siempre devuelven un Observable, de tal forma que realmente cada operador actúa como subscriptor del Observable, usando para ello la API `next, complete y error` del Observer. En la salida podemos ver como cada uno de los valores emitidos va pasando por los distintos operadores sin formar estructuras de datos intermedias, lo que es mucho más rápido y eficiente.
+
+## i18n
+La internacionalización , a veces denominada i18n, es el proceso de diseñar y preparar su proyecto para su uso en diferentes lugares del mundo. La localización es el proceso de crear versiones de su proyecto para diferentes configuraciones regionales. El proceso de localización incluye las siguientes acciones.
+
+
+#### Cambio global del idioma
+Registra datos globales para que Angular los utilice internamente. Para registrar un idioma se debe importar el idioma a usar de la librería `'@angular/common/locales'`. En caso de desear usarlo globalmente debemos agregarlo al AppModule usando el `registerLocaleData` y agregandolo en los `providers`
+```ts
+// Configuración del locale de la app
+import localeEsHN from '@angular/common/locales/es-HN';
+import localeFrCA from '@angular/common/locales/fr-CA';
+
+import { registerLocaleData } from '@angular/common';
+
+
+registerLocaleData( localeEsHN );
+registerLocaleData( localeFrCA );
+
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+
+    SharedModule,
+  ],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'es-HN' }
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+
+
+
+## Storage
+El objeto Storage (API de almacenamiento web) nos permite almacenar datos de manera local en el navegador y sin necesidad de realizar alguna conexión y/o consultas a una base de datos. 
+
+#### Local Storage
+Es una propiedades que accede al objeto Storage y tienen la función de almacenar datos de manera local, dicha información se almecena de forma indefinida o hasta que se decida limpiar los datos del navegador. Se almacenan de la manera llave-valor
+```ts
+// set a value
+localStorage.setItem('Nombre', 'Miguel Antonio')
+localStorage.Apellido = 'Márquez Montoya'
+
+// get a value
+localStorage.getItem('Nombre'),
+localStorage.Apellido
+
+// remove a single item
+localStorage.removeItem('Nombre');
+localStorage.removeItem(Apellido);
+
+// clear the whole localStorage
+localStorage.clear();
+```
+
+#### Session Storage
+Es una propiedades que accede al objeto Storage y tienen la función de almacenar datos de manera local, dicha propiedad almacena la información mientras la pestaña donde se esté utilizando siga abierta, una vez cerrada, la información se elimina. Se almacenan de la manera llave-valor
+
+```ts
+// set a value
+sessionStorage.setItem('Nombre', 'Miguel Antonio')
+sessionStorage.Apellido = 'Márquez Montoya'
+
+// get a value
+sessionStorage.getItem('Nombre'),
+sessionStorage.Apellido
+
+// remove a single item
+sessionStorage.removeItem('Nombre');
+sessionStorage.removeItem(Apellido);
+
+// clear the whole sessionStorage
+sessionStorage.clear();
+```
+
 
 ## Bootstrap
 Existen varias manera de instalar bootstrap en nuestro proyecto, si nuestro proyecto usa internet se recomienda el uso del CDN de bootstrap, a nivel local existen otras maneras como el uso de paquetes de node. Para ello basta con instalar el bootstrap, jquery y popper
