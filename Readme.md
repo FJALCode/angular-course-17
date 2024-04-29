@@ -76,30 +76,63 @@
   * [Router](#router)
   * [ActivatedRoute](#activatedroute)  
   * [Rutas Anidadas](#rutas-anidadas)  
-* [RxJS](#rxjs)
-  * [Partes del RxJS](#partes-del-rxjs)
-  * [Patrón Iterador](#patrón-iterador)
-    * [hasNext() & next()](hasnext-next)
-  * [Operadores RxJS](#operadores-rxjs) 
-    * [of()](#of)
-    * [from()](#from)
-    * [Pipe()](#pipe)
-    * [Map()](#map)  
-    * [debounceTime()](#debounceTime)
-  * [Suscribe()](#suscribe)   
-  * [Subjects](#subjects)
-  * [Operadores RxJs vs Función de Orden Superior](#operadores-rxjs-vs-función-de-orden-superior)
 * [i18n](#i18n)
   * [Cambio global del idioma](#cambio-global-del-idioma)
 * [Storage](#storage)
   * [Local Storage](#local-storage)
-  * [Session Storage](#session-storage) 
-* [Bootstrap](#bootstrap)
-* [Angular Material](#angular-material)
-  * [Instalación y Configuración](#instalación-y-configuración)
-  * [MatButton](#matbutton)
-  * [MatCard](#matcard)
+  * [Session Storage](#session-storage)  
+* [Novedades Angular 14](#novedades-angular-14)
+  * [Angular 14 - Standalone Componentes](#angular-14---standalone-componentes)
+  * [Angular 14 - Tipado de Formulario](#angular-14---tipado-de-formulario)
+  * [Angular 14 - Streamlined page title accessibility](#angular-14---streamlined-page-title-accessibility)
+  * [Angular 14 - Extended developer diagnostics](#angular-14---extended-developer-diagnostics)
+  * [Angular 14 - New primitives in the Angular CDK](#angular-14---new-primitives-in-the-angular-cdk)
+  * [Angular 14 - Angular CLI enhancements](#angular-14---angular-cli-enhancements)
+  * [Angular 14 - Angular DevTools is available offline and in Firefox](#angular-14---angular-devTools-is-available-offline-and-in-firefox)
+  * [Angular 14 - Experimental ESM Application Builds](#angular-14---experimental-esm-application-builds)
+* [Novedades Angular 15](#novedades-angular-15)
+  * [Angular 15 - Aplicaciones sin módulos](#angular-15---aplicaciones-sin-módulos)
+  * [Angular 15 - Lazy Loading de componentes](#angular-15---lazy-loading-de-componentes)
+  * [Angular 15 - Mejoras en la carga de imágenes](#angular-15---mejoras-en-la-carga-de-imágenes)
+  * [Angular 15 - Guardianes de rutas como funciones](#angular-15---guardianes-de-rutas-como-funciones)
+  * [Angular 15 - Mejoras en el formato de errores](#angular-15---mejoras-en-el-formato-de-errores)
+  * [Angular 15 - Angular Material alienado con Material Design 3](#angular-15---angular-material-alienado-con-material-design-3)
+  * [Angular 15 - Nueva utilidad en Angular CDK](#angular-15---nueva-utilidad-en-angular-cdk)
+  * [Angular 15 - Construcciones más rápidas con ESBuild](#angular-15---construcciones-más-rápidas-con-esbuild)
+  * [Angular 15 - Menos archivos menos estrés](#angular-15---menos-archivos-menos-estrés)
+  * [Angular 15 - Elige tu herramienta de testing para e2e](#angular-15---elige-tu-herramienta-de-testing-para-e2e)
+* [Novedades Angular 16](#novedades-angular-16)
+  * [Angular 16 - Reactividad rediseñada con Signals](#angular-16---reactividad-rediseñada-con-signals)
+  * [Angular 16 - Interoperabilidad con RxJS](#angular-16---interoperabilidad-con-rxjs)
+  * [Angular 16 - Renderizado en el lado del servidor SSR](#angular-16---renderizado-en-el-lado-del-servidor-ssr)
+  * [Angular 16 - Creación de proyectos independientes desde cero](#angular-16---creación-de-proyectos-independientes-desde-cero)
+  * [Angular 16 - Configuración de Zone.js](#angular-16---configuración-de-zonejs)
+  * [Angular 16 - Vista previa de desarrolladores basado en esbuild](#angular-16---vista-previa-de-desarrolladores-basado-en-esbuild)
+  * [Angular 16 - Mejor prueba unitaria con Jest y Web Test Runner](#angular-16---mejor-prueba-unitaria-con-jest-y-web-test-runner)
+  * [Angular 16 - Autocompletar importaciones en las plantillas](#angular-16---autocompletar-importaciones-en-las-plantillas)
+  * [Angular 16 - Entradas requeridas](#angular-16---entradas-requeridas)
+  * [Angular 16 - Pasar datos del enrutador como entradas del componente](#angular-16---pasar-datos-del-enrutador-como-entradas-del-componente)
+  * [Angular 16 - Soporte de CSP para estilos en línea](#angular-16---soporte-de-csp-para-estilos-en-línea)
+  * [Angular 16 - ngOnDestroy flexible](#angular-16---ngondestroy-flexible)
+  * [Angular 16 - Etiquetas de cierre automático](#angular-16---etiquetas-de-cierre-automático)
+* [Novedades Angular 17](#novedades-angular-17)
+  * [Angular 17 - Nuevo Logo y Nuevo sitio web de documentación](#angular-17---nuevo-logo-y-nuevo-sitio-web-de-documentación)
+  * [Angular 17 - Migración Automática a la Nueva Sintaxis](#angular-17---migración-automática-a-la-nueva-sintaxis)
+  * [Angular 17 - Nuevos Flujos de Control](#angular-17---nuevos-flujos-de-control)
+  * [Angular 17 - Vistas Diferidas (Lazy Loading)](#angular-17---vistas-diferidas-lazy-loading)
+  * [Angular 17 - Standlone por Defecto](#angular-17---standlone-por-defecto)
+  * [Angular 17 - Bucle For Incorporado](#angular-17---bucle-for-incorporado)
+  * [Angular 17 - Signals Optimizados](#angular-17---signals-optimizados)
+  * [Angular 17 - Esbuild y Vite por Defecto](#angular-17---esbuild-y-vite-por-defecto)
+  * [Angular 17 - Depuración de Inyección de Dependencias en DevTools](#angular-17---depuración-de-inyección-de-dependencias-en-devtools)
+  * [Angular 17 - Nuevas Validaciones](#angular-17---nuevas-validaciones)
+* [Helpers Angular 17](#helpers-angular-17)
+  * [structuredClone()](#structuredclone)
 
+
+
+
+  
 
  
 ## Proyecto de Angular
@@ -2498,226 +2531,6 @@ Dando como resultado un path del tipo
 ```
 En caso de desear obtener los parametros enviados por el padre dentro de una ruta hija debemos hacer uso del [ActivatedRoute](#activatedroute) 
 
-## RxJS
-La RxJS *(Reactive Extensions)* es una librería muy útil de Javascript, que te ayuda a gestionar flujos de datos asíncronos *(Programación Reactiva)*.
-Como norma general, se usa el RxJS para todo código que tiene que gestionar más de un evento o requiere encadenar varias operaciones asíncronas. También es útil cuando se necesita gestionar de forma individual el éxito o error en la ejecución de varias operaciones asíncronas.
-Los operadores de RxJs son funciones que pueden ser encadenadas en lo que llamamos la cadena o pipeline de operadores y que se sitúan entre medias del Observable y el Observer con el objetivo de filtrar, transformar o combinar los valores del Observable/Observables. 
-
-
-#### Partes del RxJS
-Se compone basicamente de los siguientes elementos:
-*   **`Observable`:** El flujo de datos, una colección de eventos que se pueden emitir en algún momento.
-*   **`Observer`:** Un objeto que escucha el flujo de datos y puede actuar sobre los valores que éste emite. En el patrón Observer, el Subject dispone de una API con 3 métodos principales:
-    *  **[Suscribe](#suscribe)**: para que los Observers se suscriban
-    *  **`Unsubscribe`**: para que los Observers cancelen la suscripción
-    *  **`Notify`**: lo llama internamente cuando detecta cambios en su estado.
-*   **`Subscription`:** Representa la ejecución de un observable y permite cancelarla.
-*   **`Operador`:** Función para manipular los eventos siguiendo los principios de la programación funcional.
-*   **`Subject`**: Similar al `Subject` del patrón Observer. En RxJS sirven para distribuir un Observable hacia varios Observers simultáneamente.
-*   **`Schedulers`**: Los schedulers sirven para controlar el orden de las suscripciones y el orden y velocidad de emisión de eventos.
-
-> Fuente de la información [acá](http://blog.enriqueoriol.com/2019/04/aprende-rxjs-3.html) y [acá](https://pablomagaz.com/blog/como-funcionan-operadores-rxjs)
-
-#### Patrón Iterador
-En este caso, se utiliza un objeto (el Iterador), como mecanismo para atravesar una colección de elementos (o contenedor) de forma secuencial, para acceder a su contenido.
-La gracia del Patrón Iterador, es que te permite iterar la colección sin necesidad de conocer la estructura del contenedor, gracias a una API bien definida.
-
-##### hasNext() & next()
-La API de un Iterador, expone típicamente 2 métodos:
-
-* **hasNext()** para saber si todavía quedan elementos en la colección (Booleano)
-* **next()** para acceder al siguiente elemento de la colección
-
-
-Por tanto te da igual como esté implementada la lista que contiene los datos, lo único que necesitas es saber que implementa el patrón iterador y que por tanto puedes usar estos dos métodos, 
-```ts
-let myArray = new IterableList ( 1, 2, 3, 4, 5 );
-let iterator = myArray.iterator();
-
-while( iterator.hasNext( ) ){
-    console.log( iterator.next( ) );
-}
-//output: 1 2 3 4 5
-```
-
-
-#### Operadores RxJS
-Un Operador es una función que crea un nuevo Observable basado en el Observable actual. Esta es una operación pura: el Observable anterior permanece sin modificar.
-Esencialmente, un Operador es como una máquina que toma un Observable como entrada, realiza alguna lógica en los valores transmitidos a través del Observable y crea un nuevo Observable con estos valores, sin cambiar el Observable original.
-<img src="img/OperatorExplanation.png" width="auto;"/>
-
-
-##### of()
-El Operador `of` es un Operador de creación. Los operadores de creación son funciones que crean un flujo observable a partir de una fuente.
-
-El Operador `of` creará un Observable que emite una cantidad variable de valores en secuencia, seguido de una notificación de Finalización.
-```ts
-import { of } from 'rxjs';
-
-const arr = [1, 2, 3];
-const arr$ = of(arr);
-arr$.subscribe((values) => console.log(`Emitted Values: `, values));
-// Response: 
-// Emitted Values: [1, 2, 3]
-```
-En este ejemplo al subscribirnos emitirá una única respuesta con el array completo, ya que el operador los toma como una única colección de datos, en caso de desear pasarlos por separados usando este operador debemos pasar los elementos dentro del `of` separados por comas
-```ts
-import { of } from 'rxjs';
-
-const arr$ = of(1, 2, 3);
-arr$.subscribe((values) => console.log(`Emitted Values: `, values));
-// Response: 
-// Emitted Values: 1
-// Emitted Values: 2
-// Emitted Values: 3
-```
-Si nos basamos en el primer ejemplo vemos  que `of` emitirá la matriz completa como un único valor. Esto contrasta con el operador `from`
-
-##### from()
-El Operador `from` convierte un Array, Promise o Iterable en un Observable.
-
-Este operador convertirá una Promesa en un Observable, lo que permitirá que se maneje de una manera más reactiva. Cuando la Promesa se resuelva o rechace, se enviará una notificación de finalización a todos los suscriptores.
-
-Además, a diferencia `of`, emitirá cada elemento en un Array o Iterable en secuencia, en lugar del valor completo. Una vez que se han emitido todos los elementos del Array o Iterable, se envía una notificación de finalización a los suscriptores.
-
-```ts
-import { from } from 'rxjs'; 
-
-const arr = [1, 2, 3];
-const arr$ = from(arr);
-arr$.subscribe((values) => console.log(`Emitted Values: `, values));
-// Response: 
-// Emitted Values: 1
-// Emitted Values: 2
-// Emitted Values: 3
-```
-Como podemos el operador `form` tomó cada número y lo emitió como un valor. El suscriptor recibió cada valor en secuencia y llamó `console.log` tres veces.
-
-También podemos usar un valor como una cadena:
-```ts
-import { from } from 'rxjs'; 
-
-const fromString$ = from("Hello");
-fromString$.subscribe((value) => console.log(`Emitted Values: `, value));
-// Response: 
-// Emitted Values: H
-// Emitted Values: e
-// Emitted Values: l
-// Emitted Values: l
-// Emitted Values: o
-```
-
-También podemos hacerlos con promesas, cuando la misma se resuelva el operador `form` podra ejecutarse
-```ts
-import { from } from 'rxjs'; 
-const examplePromise = new Promise((resolve, reject) => {
-  // Do some async code and resolve and object with an id property
-  return resolve({ id: 1 });
-});
-
-const promise$ = from(examplePromise);
-promise$.subscribe((value) => console.log(`Emitted Values: `, value));
-```
-
-
-##### Pipe()
-El método `pipe()` permitirá ejecutar uno o varios operadores simultaneamente según tengamos la necesidad combinandolos y arrojando 1 solo resultado.
-```ts
-import { of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-
-const obs = of({name: 'John Wayne', age: 72})
-const mapped = obs.pipe(
-                  filter(n => n.name== 'John Wayne'),
-                  map(v => v.name));
-
-mapped.subscribe(name => console.log (name));
-```
-Como se aprecia el método `pipe()` recibe un array de operadores, de modo que cada operador va modificando el flujo de datos.
-
-##### Map()
-El operador `Map` es llamado operador de transformación ya que nos permitirá manipular los datos recibidos y retornar un nuevo tipo de información más pulidad y precisa para la funcionalidad que estemos desarrollando sin tener que trabajar con el objeto entero.
-```ts
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-const obs = of({name: 'John Wayne', age: 72})
-const mapped = obs.pipe(
-                  map(v => v.name));
-
-mapped.subscribe(name => console.log (name));
-```
-En este ejemplo el flujo de evento de la constante `obs` incluye un objeto con nombre y edad, como queremos obtener solo el nombre usamos el operador `map()`para retornar el dato a usar.
-En caso que la petición a usar retorne algún tipo de error (un buen ejemplo al usar una petición de tipo `http`), provocará que el map no sea ejecutado.
-
-##### debounceTime()
-El operador `debounceTime` emite una notificación solo después de que haya transcurrido un período de tiempo particular sin que otra fuente emita.
-```ts
-import { fromEvent, debounceTime } from 'rxjs';
-
-const clicks = fromEvent(document, 'click');
-const result = clicks.pipe(debounceTime(1000));
-result.subscribe(x => console.log(x));
-```
-En este ejemplo el console log se ejecutará despues de haber pasado 1000ms (1 seg)
-
-<img class="image" src="img/debounceTime.gif" alt="Simple debounce en JavaScript" loading="lazy">
-
-
-#### Suscribe()
-El método `suscribe()` es un método del tipo Observable el cual se ejecuta cuando se produce un evento indicado en el atributo subscrito. El tipo Observable es una utilidad que transmite datos de forma asíncrona o sincrónica a una variedad de componentes o servicios que se han suscrito al observable.  Su interfaz define 3 métodos (1 obligatorio y 2 opcionales):
-*   **`next`:** *(Required)*. Método callback que recibe y usa los datos
-*   **`error`:** *(Opcional)*. Método callback que escucha el flujo de datos y puede actuar sobre los valores que éste emite en caso de errores.
-*   **`complete`:** *(Opcional)*. Método callback para la notificación de la ejecución completa.
-```ts
-myObservable.subscribe(
-  x => console.log('Observer got a next value: ' + x),
-  err => console.error('Observer got an error: ' + err),
-  () => console.log('Observer got a complete notification')
-);
-```
-
-#### Subjects
-Los Subjects son Observables que además pueden manejar múltiples suscripciones a un único flujo y son capaces de emitir eventos.
-
-Como los eventos solo los quieres generar a nivel interno, lo que debes hacer es crear un Subject privado, y exponer un Observable público con el flujo del primero.
-#### Operadores RxJs vs Función de Orden Superior
-
-Las funciones que operan en otras funciones, ya sea tomándolas como argumentos o retornandolas, se denominan `funciones de orden superior`, un buen ejemplo sería crear una función que permita sumar 2 números y retorne el resultado.
-Si bien es buena idea ver los operadores de RxJs como algo parecido a las funciones de orden superior los operadores de RxJs trabajan de forma un poco diferente. La principal diferencia es que los Observables no generan estructuras de datos intermedias como si hacen las funciones de orden superior como `map` o `filter`
-```ts
-const data = [0,1,2,3];
-
-const result = data
-.filter(x => {
-  console.log(`filter: ${x}`);
-  return x % 2 === 0;
-})
-.map(x => {
-  console.log(`map: ${x}`);
-  return x * x;
-})  
-// OUTPUT >> filter: 0, filter: 1, filter: 2, filter: 3, map: 0, map: 2
-```
-Cada una de estas funciones siempre devuelve un nuevo Array, sin realizar mutaciones en el Array original y como vemos en la salida hasta que filter no devuelve un nuevo Array, éste, no pasa a la siguiente función que es map. En estructuras largas de datos, esto, tendrá un coste elevado por la duplicidad temporal de los datos. La misma operación en RxJs tiene un aspecto casi idéntico, pero funciona de forma diferente.
-```ts
-const data = [0,1,2,3];
-const source$ = Rx.Observable.from(data);
-
-source$
-.filter(x => {
-  console.log(`filter: ${x}`);
-  return x % 2 === 0;
-})
-.map(x => {
-  console.log(`map: ${x}`);
-  return x * x;
-})
-.subscribe(); 
-// OUTPUT >> filter: 0, map: 0, filter: 1, filter: 2, map: 2, filter: 3
-```
-Técnicamente, un operador, o al menos la gran mayoría de ellos, siempre devuelven un Observable, de tal forma que realmente cada operador actúa como subscriptor del Observable, usando para ello la API `next, complete y error` del Observer. En la salida podemos ver como cada uno de los valores emitidos va pasando por los distintos operadores sin formar estructuras de datos intermedias, lo que es mucho más rápido y eficiente.
-
 ## i18n
 La internacionalización , a veces denominada i18n, es el proceso de diseñar y preparar su proyecto para su uso en diferentes lugares del mundo. La localización es el proceso de crear versiones de su proyecto para diferentes configuraciones regionales. El proceso de localización incluye las siguientes acciones.
 
@@ -2800,70 +2613,593 @@ sessionStorage.removeItem(Apellido);
 sessionStorage.clear();
 ```
 
+## Novedades Angular 14
 
-## Bootstrap
-Existen varias manera de instalar bootstrap en nuestro proyecto, si nuestro proyecto usa internet se recomienda el uso del CDN de bootstrap, a nivel local existen otras maneras como el uso de paquetes de node. Para ello basta con instalar el bootstrap, jquery y popper
-```sh
-npm install bootstrap --save
-npm install jquery@1.9.1 popper.js@^1.16.1 --save
-```
-Luego nos dirigimos al archivo `angular.json` en la sección de build/styles y build/scripts los paquetes de arranque 
-```json
-"build": {
-  "styles": [
-    "src/styles.css",
-    "node_modules/bootstrap/dist/css/bootstrap.min.css"
-  ],
-  "scripts": [
-    "node_modules/jquery/jquery.min.js",
-    "node_modules/popper.js/dist/umd/popper.min.js",
-    "node_modules/bootstrap/dist/js/bootstrap.min.js"
-  ]
-},
-```
-> La desventaja de tenerlo de forma local es que estas librerías pasan a ser parte del `bundle` provocando que el programa final pese un poco más.
+### Angular 14 - Standalone Componentes
+Los standalone components simplemente son components que no dependen necesariamente de ningún módulo. Se puede obtener una explicación completa de ellos acá.
 
-## Angular Material
-Angular Material es un módulo construido para Angular que permite implementar componentes con un diseño basado en Material Design.
+<img src="img/Angular 14/Standalone Components.png" width="auto;"/>
 
-#### Instalación y Configuración
-Para la instalación desde el CLI de angular basta con agregar el siguiente comando:
-```sh
-ng add @angular/material
-```
-Esto agregará las dependencias al package, instalará la fuente roboto y fuentes del icono de Material Design en el `index.html` y agregará estilos globales en el archivo `style.css`
+### Angular 14 - Tipado de Formulario
+Ahora en esta nueva versión la API de Angular Forms puede inferir el tipo que pusiste y alerte que por ejemplo ese campo que definiste como number no lo puedes modificar a un string o boolean o cambiarlo a un array, ya que eso tendrías comportamientos inadecuados en tu código que pueden producir bugs.
 
-#### MatButton
-Es un componente UI de Angular Material que renderiza `<button>` e hipervínculos `<a>`. Se importa con el módulo `MatButtonModule` en nuestro módulo a trabajar
+<img src="img\Angular 14\Typed Angular Forms.gif" width="auto;"/>
+
+
+### Angular 14 - Streamlined page title accessibility
+Angular está constantemente lanzando nuevas características para que por defecto al desarrollar en Angular ya tengamos esas buenas prácticas y esta versión incluyen una forma para trabajar los títulos de las páginas desde la definición de rutas.
+
+Funciona de la siguiente manera:
 
 ```ts
-import {MatButtonModule} from '@angular/material/button';
+constroutes: Routes = [{
+  path: 'home',
+  component: HomeComponent
+  title: 'My App - Home'// <-- Page title
+}, {
+  path: 'about',
+  component: AboutComponent,
+  title: 'My App - About Me'// <-- Page title
+}];
+```
 
-@NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule,BrowserAnimationsModule,MatButtonModule],
-  providers: [],
-  bootstrap: [AppComponent]
+### Angular 14 - Extended developer diagnostics
+Esta es una de las características que solo tienes que disfrutar a la hora de actualizar y nada más. Angular al trabajar fuertemente con tipado puede usar ventajas del IDE que otros no pueden y tener una gran experiencia a la hora de desarrollar.
+
+Parte de eso es el plugin para VSCode llamando Angular Language service que al instalarlo es como tener pair-programming que constantemente te está revisando y diciendo dónde puedes estar cometiendo un error.
+
+<img src="img\Angular 14\Extended-developer-diagnostics.gif" width="auto;"/>
+
+
+### Angular 14 - New primitives in the Angular CDK
+Angular tiene su propio paquete para UI si quieres usarlo en tus aplicaciones y estos paquetes son el de Angular Material y el Angular CDK en donde te brindan herramientas para no recrear la rueda.
+
+A su vez, en esta nueva versión incluye mejoras al Angular CDK con nuevos componentes que son agnósticos al estilo visual que quieras implementar.
+
+<img src="img\Angular 14\New-primitives-in-the-Angular-CDK.gif" width="auto;"/>
+
+### Angular 14 - Angular CLI enhancements
+
+Accidentalmente, escribes ng sevre en vez de ng serve .
+
+A todos nos ha pasado cometer errores de typo, pero ahora el Angular CLI integra un autocompletado que previene este tipo de errores, para activar esta característica debes correr el comando ng completion.
+
+<img src="img\Angular 14\Angular CLI enhancements.gif" width="auto;"/>
+
+
+### Angular 14 - Angular DevTools is available offline and in Firefox
+Angular DevTools en una de las recientes características de Angular y es la forma de hacer debug mucho más sencillo.
+
+Hasta ahora estaba solo disponible para Google Chrome, pero ya está para Firefox.
+
+
+<img src="img\Angular 14\Angular DevTools is available offline and in Firefox.png" width="auto;"/>
+
+
+### Angular 14 - Experimental ESM Application Builds
+En esta versión se incluye un soporte opcional para usar directamente esBuild para construir tu proyecto.
+
+EsBuild es una reciente herramienta que ayuda a hacer todo el proceso de construcción y empaquetado, tal cual como Webpack, solo que más rápida.
+
+<img src="img\Angular 14\Experimental ESM Application Builds.png" width="auto;"/>
+
+Y en esta versión lo puedes usar cambiando el archivo angular.json y aplicando el siguiente cambio:
+
+```ts
+"builder": "@angular-devkit/build-angular:browser" => Antes
+"builder": "@angular-devkit/build-angular:browser-esbuild" => Despues
+```
+
+
+## Novedades Angular 15
+### Angular 15 - Aplicaciones sin módulos
+`Standalone Components` es una de las novedades más importantes y el tema sobre el que más habla la comunidad. Se trata de desarrollar aplicaciones sin necesidad de módulos 🤯.
+
+```ts
+import {bootstrapApplication} from '@angular/platform-browser';
+import {ImageGridComponent} from'./image-grid';
+
+@Component({
+  standalone: true,
+  selector: 'photo-gallery',
+  imports: [ImageGridComponent],
+  template: `
+    … <image-grid [images]="imageList"></image-grid>
+  `,
 })
-```
-Para usarlos basta con colocar alguno de los atributos en nuestra etiqueta
+export class PhotoGalleryComponent {
+  // component logic
+}
 
-* **mat-button** = Botón de texto rectangular sin elevación
-* **mat-raised-button** = Botón rectangular contenido con elevación
-* **mat-flat-button** = Botón contenido rectangular sin elevación
-* **mat-stroked-button** = Botón rectangular con contorno sin elevación
-* **mat-icon-button** = Botón circular con fondo transparente, destinado a contener un icono
-* **mat-fab** = Botón circular con elevación, predeterminado al color de acento del tema.
-* **mat-mini-fab** = Igual que mat-fabpero más pequeño
+bootstrapApplication(PhotoGalleryComponent);
+```
+
+### Angular 15 - Lazy Loading de componentes
+Normalmente, cuando quieres implementar el patrón de Lazy Loading lo haces por medio de un módulo; sin embargo, ahora gracias a los Standalone Components vas a poder hacerlo directamente en componentes y no tienes que resolver la promesa de la importación dinámica, sino que se hace automáticamente. Por ejemplo:
+
+```ts
+@Component({
+  standalone: true,
+  template: '...'
+})
+export default class LazyComponent { ... }
+```
+
+```ts
+{
+  path: 'lazy',
+  loadComponent: () => import('./lazy-file'),
+}
+```
+
+### Angular 15 - Mejoras en la carga de imágenes
+Ahora contamos con una nueva directiva en Angular para mejorar la carga de las imágenes y con esto reducir los tiempos de carga en un sitio web. Por ejemplo, tenemos un sitio de prueba que le toma cargar una imagen en 4 segundos; aplicando la nueva directiva tomaría mucho menos.
+
+<img src="img\Angular 15\Mejoras en la carga de imágenes.jpeg" width="auto;"/>
+
+Para usarla, lo único que tienes que hacer es importar el módulo de `NgOptimizedImage`  en donde los quieres emplear y luego usa el attr `ngSrc` en tus imágenes, así:
+
+```ts
+import { NgOptimizedImage } from '@angular/common';
+
+<img ngSrc="cat.jpg">
+```
+
+### Angular 15 - Guardianes de rutas como funciones
+Los guardianes son usados en Angular para dar o no acceso a ciertas partes de tu aplicación basadas en las rutas, por ejemplo, si un usuario ingresa a tu ruta /admin no deberías dejarlo acceder si no tiene los permisos. Normalmente usamos clases para lograr este objetivo, pero ahora podemos usar funciones.
+
+Este sería el código usando clases de un Guard que verifica si un usuario tiene sesión y con base en ello el da acceso o no.
+
+```ts
+@Injectable({ providedIn: 'root' })
+export class MyGuardWithDependency implements CanActivate {
+  constructor(private loginService: LoginService) {}
+
+  canActivate() {
+    return this.loginService.isLoggedIn();
+  }
+}
+
+const route = {
+  path: 'somePath',
+  canActivate: [MyGuardWithDependency]
+};
+```
+
+Sin embargo, ahora podríamos usar una simple función:
+
+```ts
+const route = {
+  path: 'admin',
+  canActivate: [() => inject(LoginService).isLoggedIn()]
+};
+```
+
+En el código anterior vemos que se usa la función `inject` , que sería la forma de mantener el patrón de inyección de dependencias en las funciones.
+
+
+### Angular 15 - Mejoras en el formato de errores
+Hacer “debugging ” es una de las tareas primordiales de un Web Developer y Angular siempre ha estado muy adelante en brindarnos mejores herramientas para analizar los errores. Ahora tiene una forma más completa para saber cómo y por qué se produjo un error, con formato más claro, por ejemplo si tenemos el siguiente código:
+
+```ts
+@Component({
+  template: '...'
+})
+export default class AppComponent {
+	
+	submit() {
+		throw new Error('error');
+	}
+}
+```
+
+En versiones previas, Angular te muestra un error de este tipo:
+
+```ts
+ERROR Error: Uncaught (in promise): Error
+Error
+    at app.component.ts:18:11
+    at Generator.next (<anonymous>)
+    at asyncGeneratorStep (asyncToGenerator.js:3:1)
+    at _next (asyncToGenerator.js:25:1)
+    at _ZoneDelegate.invoke (zone.js:372:26)
+    at Object.onInvoke (core.mjs:26378:33)
+    at _ZoneDelegate.invoke (zone.js:371:52)
+    at Zone.run (zone.js:134:43)
+    at zone.js:1275:36
+    at _ZoneDelegate.invokeTask (zone.js:406:31)
+    at resolvePromise (zone.js:1211:31)
+    at zone.js:1118:17
+    at zone.js:1134:33
+```
+
+Ahora en la versión 15 los errores son pequeños, con información relevante y te indica dónde se produce el error de forma más precisa. Así se vería:
+
+```ts
+ERROR Error: Uncaught (in promise): Error
+Error
+    at app.component.ts:18:11
+    at fetch (async)  
+    at (anonymous) (app.component.ts:4)
+    at request (app.component.ts:4)
+    at (anonymous) (app.component.ts:17)
+    at submit (app.component.ts:15)
+    at AppComponent_click_3_listener (app.component.html:4)
+```
+
+### Angular 15 - Angular Material alienado con Material Design 3
+Angular Material es uno de esos paquetes que puedes o no usar en Angular, recuerda tú eliges qué partes del framework usar. En este caso, Angular Material sería una librería de componentes con un estilo visual siguiendo Material Design el sistema de diseño de Google para aplicaciones y hace poco lanzaron la versión número 3 de este sistema de diseño.
+
+<img src="img\Angular 15\Angular Material alienado con Material Design 3.jpeg" width="auto;"/>
+
+¿Qué cambia en esta versión? Precisamente, Google está haciendo una actualización a su sistema de diseño y como parte de ello liberó herramientas para Android, Flutter y Web en donde es más fácil que se pueda implementar y seguir sus guías.
+
+Ahora, el equipo de Angular Material usará directamente estas herramientas de Material Design, con esto facilita el mantenimiento y además implementa este sistema de diseño de forma más fiel.
+
+### Angular 15 - Nueva utilidad en Angular CDK
+El Angular CDK es un conjunto de herramientas para comportamientos de UI que son agonísticos al estilo visual, quiere decir que tu podrías ahorrar muchas líneas de código haciendo comportamientos como un Drag and Drop, Modales, Overlays pero tu le agregas tu propio estilo visual.
+
+Un ejemplo de esto es usar el Angular CDK + TailwindCSS para crear una interfaz como trello, como la siguiente:
+
+<img src="img\Angular 15\Nueva utilidad en Angular CDK.png" width="auto;"/>
+
+
+### Angular 15 - Construcciones más rápidas con ESBuild
+En esta versión mejoran el soporte a ESBuild, un empaquetador que está escrito en GO y sería el reemplazo a Webpack. Con esto correr comandos como `ng build` tardan menos tiempo y hasta puedes hacer livereload con `ng build --watch`
+
+<img src="img\Angular 14\Experimental ESM Application Builds.png" width="auto;"/>
+
+En la versión 14 se lanzó un preliminar, en esta versión ya se hace el proceso de empaquetado con esta herramienta y se incluye el procesamiento de archivos sass, svg y fileReplacement.
+
+Lo puedes habilitar cambiando el archivo `angular.json` y aplicando el siguiente cambio:
+
+```ts
+"builder": "@angular-devkit/build-angular:browser" => Antes
+"builder": "@angular-devkit/build-angular:browser-esbuild" => Despues
+```
+
+### Angular 15 - Menos archivos menos estrés
+Cuando inicies un proyecto nuevo en Angular notarás que ahora trae menos archivos. Esta sería la diferencia.
+
+<img src="img\Angular 15\Menos archivos menos estrés.jpeg" width="auto;"/>
+
+¿Que paso con los archivos que desaparecen? Angular maneja esas configuraciones por detrás y algunos si desaparecen y otros tendrás que habilitar si es que realmente los usas.
+
+Por ejemplo, ya no vas a encontrar la carpeta `environments` si necesitas realmente manejar ambientes y colocar allí tus llaves entonces manualmente habilitas el archivo. No te preocupes si ya manejabas los arhivos con configuraciones personalizadas, Angular los va a mantener.
+
+
+### Angular 15 - Elige tu herramienta de testing para e2e
+Hace poco Angular dejó obsoleto a Protractor la herramienta para escribir pruebas e2e. Entonces, ¿qué usar? En la industria hay herramientas que están haciendo un gran trabajo para este tipo de pruebas y ahora Angular te da a elegir con cuál de ellas quieres trabajar al correr el comando ng e2e
+
+<img src="img\Angular 15\Elige tu herramienta de testing para e2e.png" width="auto;"/>
+
+
+
+## Novedades Angular 16
+
+### Angular 16 - Reactividad rediseñada con Signals
+En Angular 16, se ha agregado una nueva biblioteca de señales (signals library) que permite definir valores reactivos y expresar las dependencias entre ellos. Esta librería proporciona una forma más sencilla de manejar la reactividad en las aplicaciones Angular. Aquí tienes un ejemplo de cómo usarlo:
+
+```ts
+@Component({
+  selector: 'my-app',
+  standalone: true,
+  template: `
+    {{ fullName() }} <button (click)="setName('John')">Click</button>
+  `,
+})
+export class App {
+  firstName = signal('Jane');
+  lastName = signal('Doe');
+  fullName = computed(() => `${this.firstName()} ${this.lastName()}`);
+
+  constructor() {
+    effect(() => console.log('Name changed:', this.fullName()));
+  }
+
+  setName(newName: string) {
+    this.firstName.set(newName);
+  }
+}
+```
+En este ejemplo, se crea un valor calculado (fullName) que depende de las señales firstName y lastName. También se declara un efecto (effect) que se ejecutará cada vez que se cambie el valor de alguna de las señales en las que depende (fullName, en este caso).
+
+### Angular 16 - Interoperabilidad con RxJS
+En Angular 16, se ha mejorado la interoperabilidad con RxJS al proporcionar funciones para convertir señales en observables y viceversa. Aquí tienes un ejemplo de cómo hacerlo:
+
+```ts
+import { toObservable } from '@angular/core/rxjs-interop';
+
+@Component({...})
+export class App {
+  count = signal(0);
+  count$ = toObservable(this.count);
+
+  ngOnInit() {
+    this.count$.subscribe(() => ...);
+  }
+}
+```
+En este ejemplo, se convierte la señal count en un observable utilizando la función toObservable de @angular/core/rxjs-interop. Esto permite suscribirse a los cambios de la señal utilizando el operador subscribe.
+
+### Angular 16 - Renderizado en el lado del servidor SSR
+El renderizado en el lado del servidor (Server-Side Rendering, SSR) ha mejorado significativamente en Angular 16. Ahora es más fácil y eficiente realizar el renderizado inicial en el servidor y luego hidratar la aplicación en el cliente.
+
+Se ha agregado una nueva API y mejoras en Angular Universal, el paquete oficial de SSR de Angular. Estas mejoras incluyen:
+
+* Una API simplificada para el renderizado en el lado del servidor, lo que facilita su implementación y reduce la cantidad de código necesario.
+
+* Mejor rendimiento en el tiempo de inicio, lo que reduce el tiempo necesario para renderizar la aplicación en el servidor.
+
+* Mejor integración con las características de reactividad mencionadas anteriormente, lo que permite mantener la coherencia entre el servidor y el cliente al actualizar la vista.
+
+* Mejoras en la eficiencia y escalabilidad del renderizado en el lado del servidor, lo que permite manejar aplicaciones más grandes y con mayor carga de trabajo.
+
+### Angular 16 - Creación de proyectos independientes desde cero
+En Angular v16, ahora puedes crear nuevos proyectos independientes desde el principio. Para probar la vista previa para desarrolladores de los esquemas independientes, asegúrate de tener Angular CLI v16 y ejecuta:
+
+```sh
+ng new --standalone
+```
+
+Obtendrás un proyecto más sencillo sin ningún NgModule. Además, ¡todos los generadores en el proyecto producirán directivas, componentes y pipes independientes!
+
+### Angular 16 - Configuración de Zone.js
+Después del lanzamiento inicial de las API independientes, se pidió popularmente poder configurar Zone.js con la nueva API bootstrapApplication.
+
+Agregamos una opción para esto mediante provideZoneChangeDetection:
+
+```ts
+bootstrapApplication(App, {
+  providers: [provideZoneChangeDetection({ eventCoalescing: true })]
+});
+```
+
+### Angular 16 - Vista previa de desarrolladores basado en esbuild
+En ng serve, ahora estamos utilizando Vite como servidor de desarrollo, ¡y esbuild potencia tanto tus compilaciones de desarrollo como de producción!
+
+Angular CLI se basa exclusivamente en Vite como servidor de desarrollo. Para admitir la coincidencia de selectores, el compilador de Angular necesita mantener un gráfico de dependencias entre tus componentes, lo cual requiere un modelo de compilación diferente a Vite.
+
+Puedes probar Vite + esbuild actualizando tu angular.json:
+
+```ts
+ "architect": {
+  "build": {                     /* Agrega el sufijo esbuild */
+    "builder": "@angular-devkit/build-angular:browser-esbuild",
+```
+
+### Angular 16 - Mejor prueba unitaria con Jest y Web Test Runner
+Con esta versión de Angular 16 se introduce el soporte experimental de Jest. En una versión futura, también se migrarán proyectos existentes de Karma a Web Test Runner para seguir admitiendo pruebas unitarias basadas en el navegador. Esto no afectará a la mayoría de los desarrolladores.
+
+Puedes experimentar con Jest en nuevos proyectos instalando Jest con npm install jest --save-dev y actualizando tu archivo angular.json:
+
+```ts
+npm install jest --save-dev
+
+{
+  "projects": {
+    "my-app": {
+      "architect": {
+        "test": {
+          "builder": "@angular-devkit/build-angular:jest",
+          "options": {
+            "tsConfig": "tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### Angular 16 - Autocompletar importaciones en las plantillas
+¿Cuántas veces has utilizado un componente o un pipe en una plantilla y has recibido un error del CLI o del servicio de lenguaje que en realidad no has importado la implementación correspondiente? ¡Apuesto que muchas veces!
+
+El servicio de lenguaje ahora permite importar automáticamente componentes y pipes.
+
+
+### Angular 16 - Entradas requeridas
+Desde que se introdujo Angular en 2016, no ha sido posible obtener un error en tiempo de compilación si no se especifica un valor para una entrada específica. El cambio no agrega ninguna sobrecarga en tiempo de ejecución, ya que el compilador de Angular realiza la verificación en tiempo de compilación.
+
+En v16, ahora puedes marcar una entrada como requerida:
+
+```ts
+@Component(...)
+export class App {
+  @Input({ required: true }) title: string = '';
+}
+```
+
+### Angular 16 - Pasar datos del enrutador como entradas del componente
+La experiencia de desarrollo del enrutador ha avanzado rápidamente. Una característica solicitada es la capacidad de vincular los parámetros de ruta a las entradas correspondientes del componente.
+
+Ahora puedes pasar los siguientes datos a las entradas de un componente de enrutamiento:
+
+* Datos de la ruta: resolutores y propiedades de datos.
+* Parámetros de ruta.
+* Parámetros de consulta.
+
+Aquí tienes un ejemplo de cómo puedes acceder a los datos desde un resolutor de ruta:
+
+```ts
+ const routes = [
+  {
+    path: 'about',
+    loadComponent: import('./about'),
+    resolve: { contact: () => getContact() }
+  }
+];
+
+@Component(...)
+export class About {
+  // El valor de "contact" se pasa a la entrada "contact"
+  @Input() contact?: string;
+}
+```
+Puedes habilitar esta característica utilizando `withComponentInputBinding` como parte de `provideRouter`.
+
+### Angular 16 - Soporte de CSP para estilos en línea
+Los elementos de estilo en línea que Angular incluye en el DOM para los estilos de los componentes violan la directiva Content Security Policy (CSP) style-src por defecto. Para solucionar esto, deben contener un atributo nonce o el servidor debe incluir un hash del contenido del estilo en la cabecera CSP. Aunque en Google no encontramos un vector de ataque significativo para esta vulnerabilidad, muchas empresas imponen políticas de CSP estrictas.
+
+En Angular v16, se ha implementado una nueva característica que abarca el framework, Universal, CDK, Material y la CLI, que te permite especificar un atributo `nonce` para los estilos de los componentes que Angular incluye en línea. Hay dos formas de especificar el `nonce`: mediante el atributo `ngCspNonce` o a través del token de inyección `CSP_NONCE`.
+
+El atributo `ngCspNonce` es útil si tienes acceso a una plantilla en el lado del servidor que puede agregar el `nonce` tanto en la cabecera como en el archivo `index.html` al construir la respuesta.
 
 ```html
-<button mat-raised-button>
-  Click
-</button>
+<html>
+    <body>
+        <app ngCspNonce="{% nonce %}"></app>  
+    </body>
+</html>
 ```
-Los botones podrán ser coloreados en función al tema que se este utilizando usado la propiedad `color` para establecer el forndo `primary`, `accent` o `warn`.
+
+La otra forma de especificar el nonce es a través del token de inyección CSP_NONCE. Utiliza este enfoque si tienes acceso al nonce en tiempo de ejecución y deseas poder almacenar en caché el archivo index.html:
+
+```ts
+ import {bootstrapApplication, CSP_NONCE} from '@angular/core';
+import {AppComponent} from './app/app.component';
+
+bootstrapApplication(AppComponent, {
+  providers: [{
+    provide: CSP_NONCE,
+    useValue: globalThis.myRandomNonceValue
+  }]
+});
+```
+
+### Angular 16 - ngOnDestroy flexible
+Los hooks del ciclo de vida de Angular proporcionan mucho poder para conectarse en diferentes momentos de la ejecución de tu aplicación. Una oportunidad a lo largo de los años ha sido permitir una mayor flexibilidad, por ejemplo, proporcionar acceso a OnDestroy como un observable.
+
+En v16, se ha hecho que OnDestroy sea inyectable, lo que permite la flexibilidad que los desarrolladores han estado solicitando. Esta nueva característica te permite inyectar DestroyRef correspondiente a un componente, directiva, servicio o pipe, y registrar el ciclo de vida onDestroy. DestroyRef se puede inyectar en cualquier lugar dentro de un contexto de inyección, incluso fuera de tu componente; en ese caso, el gancho onDestroy se ejecuta cuando el inyector correspondiente se destruye:
+
+```ts
+import { Injectable, DestroyRef } from '@angular/core';
+
+@Injectable(...)
+export class AppService {
+  destroyRef = inject(DestroyRef);
+
+  destroy() {
+    this.destroyRef.onDestroy(() => /* limpieza */ );
+  }
+}
+```
+
+### Angular 16 - Etiquetas de cierre automático
+Una característica que te permite utilizar etiquetas de cierre automático para componentes en las plantillas de Angular. Es una pequeña mejora en la experiencia de desarrollo que podría ahorrarte algo de escritura.
+
+Ahora puedes reemplazar:
+
 ```html
-<button mat-raised-button color="primary">
-  Click
-</button>
+<super-long-component-name [prop]="someVar"></super-duper-long-component-name>
+```
+
+con esto:
+```html
+<super-long-component-name [prop]="someVar"/>
+```
+
+
+
+## Novedades Angular 17
+### Angular 17 - Nuevo Logo y Nuevo sitio web de documentación
+El lanzamiento de Angular 17 trae consigo un nuevo logo, más moderno y minimalista, reflejando la evolución y madurez del framework. Además, Angular estrena un nuevo sitio web de documentación [(https://angular.dev/)](https://angular.dev/), este dominio viene con una nueva estructura, nuevas guías,contenido mejorado y una plataforma nueva que permite a los usuarios aprender Angular y Angular CLI de forma interactiva y a su propio ritmo. Se espera que este nuevo dominio se convierta en el sitio web predeterminado para Angular en su versión 18.
+
+<img src="img\Angular 17\nuevo-logo.png" width="auto;"/>
+
+### Angular 17 - Migración Automática a la Nueva Sintaxis
+Con la actualización a Angular 17, se proporciona una herramienta de migración automática que refactoriza el código para usar la nueva sintaxis. Ejecutando ng update, Angular CLI hará la mayor parte del trabajo por ti.
+
+
+### Angular 17 - Nuevos Flujos de Control
+En un esfuerzo por mejorar la experiencia de desarrollo, Angular ha lanzado una nueva sintaxis de plantilla de bloque. Esta innovación proporciona funciones avanzadas a través de API declarativas simples. Internamente, el compilador Angular convierte esta sintaxis en instrucciones JavaScript eficientes, optimizando el flujo de control y la carga diferida entre otras capacidades.
+
+La adopción de la nueva sintaxis de bloque resulta en un flujo de control integrado y mejorado. Investigaciones y estudios de usuarios revelaron que los desarrolladores a menudo enfrentan desafíos con las directivas ngIf, ngFor y ngSwitch
+
+Con los comentarios de la comunidad y los resultados de investigaciones de UX, Angular ha desarrollado un flujo de control más integrado. Este nuevo sistema brinda varias ventajas:
+
+* Una sintaxis más ergonómica y alineada con JavaScript, haciendo que el proceso sea más intuitivo y minimizando la necesidad de consultar la documentación.
+* Mejora en la verificación de tipos debido a una reducción de tipos más efectiva.
+* Al ser una característica que se manifiesta principalmente en tiempo de compilación, reduce la huella en tiempo de ejecución, potencialmente disminuyendo el tamaño del paquete hasta en 30 kilobytes y mejorando las puntuaciones de Core Web Vital.
+* Se integra en las plantillas sin la necesidad de importaciones adicionales.
+Proporciona mejoras de rendimiento significativas, las cuales se detallarán próximamente.
+<img src="img\Angular 17\directiva-if.png" width="auto;"/>
+
+
+### Angular 17 - Vistas Diferidas (Lazy Loading)
+Angular 17 permite cargar componentes de manera diferida con la nueva directiva ngDeferLoad. Esto reduce el tiempo de carga inicial de la aplicación y los recursos necesarios para la primera pintura.
+
+```html
+// Uso de ngDeferLoad
+<ng-container *ngDeferLoad="loadComponent">
+  <app-heavy-component></app-heavy-component>
+</ng-container>
+```
+
+### Angular 17 - Standlone por Defecto
+A partir de ahora, Standlone estará activado por defecto en todas las aplicaciones nuevas. Todo lo que se haga con ng generate y ng new será Standalone aunque, se van a poder seguir usando los módulos como siempre para ello deberemos añadir la opción:
+
+```sh
+--Standalone false
+```
+
+### Angular 17 - Bucle For Incorporado
+Otra mejora notable en Angular 17 es el bucle for incorporado. Esta característica trae una sintaxis más limpia y un rendimiento mejorado* en la renderización de listas. Por ejemplo, la nueva sintaxis para iterar sobre una lista de usuarios sería:
+
+```html
+@for (user of users) {
+  // Código para renderizar cada usuario
+}
+```
+Esta nueva sintaxis hace que sea más fácil de escribir y entender, especialmente para aquellos desarrolladores que vienen de otros lenguajes que utilizan una sintaxis similar para los bucles.
+
+### Angular 17 - Signals Optimizados
+Los Signals, introducidos en Angular 16, han sido optimizados en esta última versión. Además, el proceso de compilación ha sido actualizado cuando se utiliza el renderizado híbrido. Con SSR y SSG puedes observar una mejora de velocidad de hasta un 87% ng buildy un bucle de edición y actualización un 80% más rápido parang serve .
+
+
+### Angular 17 - Esbuild y Vite por Defecto
+Los compiladores Esbuild y Vite estarán habilitados por defecto a partir de esta versión. Este cambio mejorará la velocidad de compilación.
+
+
+### Angular 17 - Depuración de Inyección de Dependencias en DevTools
+En los últimos meses, Angular ha implementado nuevas APIs de depuración que nos permiten conectarnos al tiempo de ejecución del framework e inspeccionar el árbol de inyectores. Basándose en estas APIs han creado una interfaz de usuario de inspección que permite previsualizar:
+
+* Dependencias de tus componentes en el inspector de componentes.
+* Árbol de inyectores y ruta de resolución de dependencias.
+* Proveedores declarados dentro de los inyectores individuales.
+
+### Angular 17 - Nuevas Validaciones
+Angular 17 también introduce nuevas validaciones incorporadas, ampliando las capacidades de validación de formularios directamente desde el framework. Entre estas nuevas validaciones se encuentran:
+
+* minLength y maxLength para strings.
+* pattern para validación mediante expresiones regulares.
+* min y max para valores numéricos.
+* requiredTrue para campos que deben ser verdaderos.
+* email para la validación de direcciones de correo electrónico.
+
+Estas validaciones incorporadas facilitan la implementación de escenarios comunes de validación de formularios, reduciendo la necesidad de validadores personalizados.
+
+
+### Helpers Angular 17
+#### structuredClone()
+El método global structuredClone() crea un clon profundo de un valor determinado utilizando el algoritmo de clonación estructurado. Realiza la misma función del operador spread a fin de quitar la referencia del objeto.
+
+```ts
+structuredClone(value)
+structuredClone(value, options)
+
+
+// Un ejemplo de uso sería
+// Create an object with a value and a circular reference to itself.
+const original = { name: "MDN" };
+original.itself = original;
+
+// Clone it
+const clone = structuredClone(original);
+
+console.assert(clone !== original); // the objects are not the same (not same identity)
+console.assert(clone.name === "MDN"); // they do have the same values
+console.assert(clone.itself === clone); // and the circular reference is preserved
+
 ```
