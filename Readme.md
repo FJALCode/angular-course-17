@@ -4,15 +4,16 @@
 * [Combados básicos](#combados-básicos)
 * [Estructura de un proyecto de Angular](#estructura-de-un-proyecto-de-angular)
 * [Componentes](#componentes)
-    * [Ciclo de vida](#ciclo-de-vida)
-      * [ngOnChanges](#ngonchanges)
-      * [ngOnInit](#ngoninit)
-      * [ngDoCheck](#ngdocheck)
-      * [ngAfterContentInit](#ngaftercontentinit)
-      * [ngAfterContentChecked](#ngaftercontentchecked)
-      * [ngAfterViewInit](#ngafterviewinit)
-      * [ngAfterViewChecked](#ngafterviewchecked)
-      * [ngOnDestroy](#ngondestroy)
+  * [Ciclo de vida](#ciclo-de-vida)
+    * [ngOnChanges](#ngonchanges)
+    * [ngOnInit](#ngoninit)
+    * [ngDoCheck](#ngdocheck)
+    * [ngAfterContentInit](#ngaftercontentinit)
+    * [ngAfterContentChecked](#ngaftercontentchecked)
+    * [ngAfterViewInit](#ngafterviewinit)
+    * [ngAfterViewChecked](#ngafterviewchecked)
+    * [ngOnDestroy](#ngondestroy)
+  * [Standalone](#standalone)
 * [Servicios](#servicios)
     * [Peticiones HTTP](#peticiones-http)
       * [Get](#Get)
@@ -421,6 +422,42 @@ export class HomeComponent implements OnDestroy {
 
 ngOnDestroy(){
   console.log("ngOnDestroy");
+}
+```
+
+### Standalone
+Los standalone components simplemente son components que no dependen necesariamente de ningún módulo.
+
+Al no depender de ningún módulo:
+
+* Son más simples de implementar.
+* Son más flexibles de mover y reutilizar dentro de un mismo proyecto o moverlo a otro.
+* Es independiente y se encarga de declarar sus importaciones necesarias que se usan en el componente.
+
+```ts
+import { CommonModule } from '@angular/common';
+import { Component, type OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-new-test',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './newTest.component.html',
+  styleUrl: './newTest.component.scss'
+})
+export class NewTestComponent implements OnInit {}
+```
+
+Para los standalone en el decordar `@Component`, veremos como agregaremos nuevos selectores donde encontraremos
+*   **`standalone`:** Booleano que indicará si el componente dependera de modulos
+*   **`imports`:** Importación de los módulos a usar
+
+Para la importación en lazy loading de un standalone componente basta con agregarlo a las rutas usando un `loadcomponent`
+
+```ts
+{
+  path: 'test',
+  loadComponent: () => import('./new-test'),
 }
 ```
 
